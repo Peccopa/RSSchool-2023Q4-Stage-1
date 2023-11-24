@@ -186,7 +186,7 @@ body {
     color: var(--text-accent, #B0907A);
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Inter;
-    font-size: 72px;
+    font-size: 7.2rem;
     font-style: italic;
     font-weight: 600;
     line-height: 1.05;
@@ -209,7 +209,7 @@ body {
     align-items: center;
     width: 20rem;
     height: 6.4rem;
-    border-radius: 100px;
+    border-radius: 10rem;
     background: var(--bg-body, #E1D4C9);
     transition: all .3s ease;
     cursor: pointer;
@@ -253,7 +253,7 @@ body {
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Inter;
-    font-size: 60px;
+    font-size: 6rem;
     font-weight: 600;
     line-height: 125%;
 
@@ -262,7 +262,7 @@ body {
 
 .favorite-title span{
     color: var(--text-accent, #B0907A);
-    font-size: 60px;
+    font-size: 6rem;
     font-style: italic;
 }
 
@@ -335,7 +335,7 @@ body {
     font-feature-settings: 'clig' off, 'liga' off;
 
     font-family: Inter;
-    font-size: 24px;
+    font-size: 2.4rem;
     font-style: normal;
     font-weight: 600;
     line-height: 125%;
@@ -352,7 +352,7 @@ body {
     font-feature-settings: 'clig' off, 'liga' off;
 
     font-family: Inter;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
@@ -369,7 +369,7 @@ body {
     font-feature-settings: 'clig' off, 'liga' off;
 
     font-family: Inter;
-    font-size: 24px;
+    font-size: 2.4rem;
     font-style: normal;
     font-weight: 600;
     line-height: 125%;
@@ -378,7 +378,7 @@ body {
 .slider-control {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 1.2rem;
 }
 
 .slider-control-1,
@@ -386,7 +386,7 @@ body {
 .slider-control-3 {
     width: 4rem;
     height: 0.4rem;
-    border-radius: 100px;
+    border-radius: 10rem;
     background: var(--border-light, #C1B6AD);
 }
 
@@ -405,7 +405,7 @@ body {
     font-feature-settings: 'clig' off, 'liga' off;
 
     font-family: Inter;
-    font-size: 60px;
+    font-size: 6rem;
     font-style: normal;
     font-weight: 600;
     line-height: 125%;
@@ -418,7 +418,7 @@ body {
     font-feature-settings: 'clig' off, 'liga' off;
 
     font-family: Inter;
-    font-size: 60px;
+    font-size: 6rem;
     font-style: italic;
     font-weight: 600;
     line-height: 125%;
@@ -486,6 +486,7 @@ body {
     display: flex;
     gap: 10rem;
     align-items: center;
+    margin-bottom: 10rem;
 }
 
 .mobile-title {
@@ -494,7 +495,7 @@ body {
     color: var(--text-dark, #403F3D);
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Inter;
-    font-size: 60px;
+    font-size: 6rem;
     font-style: normal;
     font-weight: 600;
     line-height: 125%;
@@ -504,7 +505,7 @@ body {
 .mobile-title span{
     color: var(--text-accent, #B0907A);
     font-style: italic;
-    font-size: 60px;
+    font-size: 6rem;
     font-weight: 600;
     line-height: 125%;
 }
@@ -515,7 +516,7 @@ body {
     color: var(--text-dark, #403F3D);
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Inter;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
@@ -571,7 +572,7 @@ body {
     text-align: start;
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Inter;
-    font-size: 10px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 600;
     line-height: 140%;
@@ -582,7 +583,7 @@ body {
     color: var(--text-dark, #403F3D);
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Inter;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
@@ -596,4 +597,206 @@ body {
     background-color: lightgray 50%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+/*FOOTER*/
+
+svg path {
+    transition: all .3s ease;
+}
+
+.footer {
+    display: flex;
+    max-width: 136rem;
+    padding: 10rem;
+    justify-content: center;
+    align-items: center;
+    gap: 10rem;
+    align-self: stretch;
+
+    border-radius: 4rem;
+    background: var(--bg-container, #665F55);
+}
+
+.footer-offer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4rem;
+    flex: 1 0 0;
+}
+
+.footer-title {
+    align-self: stretch;
+}
+
+.footer-title-text-1 {
+    color: var(--text-light, #E1D4C9);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 6rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%;
+}
+
+.footer-title-text-2 {
+    color: var(--text-accent, #B0907A);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 6rem;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 125%;
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.footer-twitter {
+    display: flex;
+    width: 6rem;
+    height: 6rem;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10rem;
+    border: .1rem solid var(--border-light, #C1B6AD);
+
+    background-color: transparent;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.footer-twitter:hover,
+.footer-twitter:hover svg path {
+    background-color: #E1D4C9;
+    stroke: #403F3D;
+}
+
+.footer-instagram {
+    display: flex;
+    width: 6rem;
+    height: 6rem;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10rem;
+    border: .1rem solid var(--border-light, #C1B6AD);
+
+    background-color: transparent;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.footer-instagram:hover,
+.footer-instagram:hover svg path {
+    background-color: #E1D4C9;
+    stroke: #403F3D;
+}
+
+.footer-facebook {
+    display: flex;
+    width: 6rem;
+    height: 6rem;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10rem;
+    border: .1rem solid var(--border-light, #C1B6AD);
+
+    background-color: transparent;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.footer-facebook:hover,
+.footer-facebook:hover svg path {
+    background-color: #E1D4C9;
+    stroke: #403F3D;
+}
+
+.footer-info {
+    width: 53rem;
+    height: 18.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex: 1 0 0;
+}
+
+.footer-info-title {
+    width: 53rem;
+    height: 3rem;
+    align-self: stretch;
+
+    color: var(--text-light, #E1D4C9);
+    font-feature-settings: 'clig' off, 'liga' off;
+
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%;
+}
+
+.footer-contacts {
+    width: 26.2rem;
+    height: 11.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.contacts-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    list-style: none;
+}
+
+.contacts-link {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.contacts-item::after {
+    content: "";
+    width: 100%;
+    height: .2rem;
+    background-color: #E1D4C9;
+    transition: .3s ease-in-out;
+    transform: scale(0);
+}
+
+.contacts-item:hover::after {
+    transform: scale(1);
+}
+
+.contacts-svg {
+    width: 20px;
+    height: 20px;
+}
+
+.contacts-text {
+    color: var(--text-light, #E1D4C9);
+    font-feature-settings: 'clig' off, 'liga' off;
+
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
 }
