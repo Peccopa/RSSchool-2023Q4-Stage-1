@@ -25,6 +25,10 @@
     --border-dark: #665F55;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg-body);
     color: var(--text-dark);
@@ -727,7 +731,7 @@ svg path {
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 40px;
+    gap: 4rem;
     flex: 1 0 0;
 }
 
@@ -740,7 +744,7 @@ svg path {
     font-feature-settings: 'clig' off, 'liga' off;
 
     font-family: Inter;
-    font-size: 24px;
+    font-size: 2.4rem;
     font-style: normal;
     font-weight: 600;
     line-height: 125%;
@@ -753,14 +757,14 @@ svg path {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 16px;
+    gap: 1.6rem;
 }
 
 .contacts-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
+    gap: .2rem;
     list-style: none;
 }
 
@@ -769,7 +773,7 @@ svg path {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    gap: 8px;
+    gap: .8rem;
 }
 
 .contacts-item::after {
@@ -786,8 +790,8 @@ svg path {
 }
 
 .contacts-svg {
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
 }
 
 .contacts-text {
@@ -795,7 +799,7 @@ svg path {
     font-feature-settings: 'clig' off, 'liga' off;
 
     font-family: Inter;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
