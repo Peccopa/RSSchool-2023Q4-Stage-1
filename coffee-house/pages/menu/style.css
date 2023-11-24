@@ -38,6 +38,8 @@ body {
     width: 144rem;
     margin: 0 auto;
     padding: 2rem 4rem 4rem;
+    opacity: 0;
+    transition: .3s ease-in;
 }
 
 /*HEADER-TOP*/
@@ -64,13 +66,11 @@ body {
     background-image: url(/coffee-house/assets/images/header/logo.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 100% 100%;
     transition: .3s ease-in-out;
 }
 
 .logo-img:hover::after {
     transform: rotate3d(0, 0, 1, 360deg);
-    background-size: 75% 75%;
 }
 
 .nav-list {
@@ -141,13 +141,8 @@ body {
     width: 100%;
     height: .2rem;
     background-color: rgb(65, 64, 62);
-    /* transform: scale(1); */
     transition: all .2s ease;
 }
-
-/* .header-menu:hover::after {
-    transform: scale(1);
-} */
 
 .header-menu-link {
     font-feature-settings: 'clig' off, 'liga' off;
@@ -164,240 +159,6 @@ body {
     display: block;
     height: 2rem;
 }
-
-/*HEADER-CONTENT*/
-
-/* .header-content {
-    max-width: 136rem;
-    min-height: 64.4rem;
-    border-radius: 4rem;
-    background: url(/coffee-house/assets/images/header/header-bg.jpg) , lightgray 50% / cover no-repeat;
-    padding: 10rem;
-    margin-bottom: 10rem;
-}
-
-.header-title {
-    color: var(--text-light, #E1D4C9);
-    font-feature-settings: 'clig' off, 'liga' off;
-    width: 53rem;
-    height: 22.8rem;
-    font-size: 7.2rem;
-    font-weight: 600;
-    line-height: 1.05;
-    margin-bottom: 4rem;
-}
-
-.header-title span{
-    color: var(--text-accent, #B0907A);
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Inter;
-    font-size: 7.2rem;
-    font-style: italic;
-    font-weight: 600;
-    line-height: 1.05;
-}
-
-.header-text {
-    width: 53rem;
-    height: 7.2rem;
-    color: var(--text-light, #E1D4C9);
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 150%;
-    margin-bottom: 4rem;
-}
-
-.header-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 20rem;
-    height: 6.4rem;
-    border-radius: 10rem;
-    background: var(--bg-body, #E1D4C9);
-    transition: all .3s ease;
-    cursor: pointer;
-}
-
-.header-btn:hover .header-btn-img{
-    width: 2rem;
-    height: 2rem;
-    margin-left: .8rem;
-}
-
-.header-btn-text {
-    color: var(--text-dark, #403F3D);
-    text-align: center;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-size: 1.6rem;
-    font-weight: 600;
-    line-height: 150%;
-    transition: all .3s ease;
-}
-
-.header-btn-img {
-    display: block;
-    width: 0rem;
-    height: 0rem;
-    margin-left: .0rem;
-    transition: all .3s ease;
-} */
-
-/*FAVORITE*/
-
-/* .favorite {
-    width: 136rem;
-    height: 79.9rem;
-
-    margin-bottom: 10rem;
-}
-
-.favorite-title {
-    color: var(--text-dark, #403F3D);
-    text-align: center;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Inter;
-    font-size: 6rem;
-    font-weight: 600;
-    line-height: 125%;
-
-    margin-bottom: 4rem;
-}
-
-.favorite-title span{
-    color: var(--text-accent, #B0907A);
-    font-size: 6rem;
-    font-style: italic;
-}
-
-.slider-window {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 4rem;
-}
-
-.slider-left-btn,
-.slider-right-btn {
-    background-color: transparent;
-    cursor: pointer;
-    display: block;
-    width: 6rem;
-    height: 6rem;
-}
-
-.slider-left-btn {
-    margin-right: 4rem;
-}
-
-.slider-right-btn {
-    margin-left: 4rem;
-}
-
-.slider-left-btn-svg,
-.slider-right-btn-svg {
-    fill: #665f5500;
-    transition: all .3s ease;
-}
-
-.slider-left-btn-svg:hover,
-.slider-right-btn-svg:hover {
-    fill: #665F55;
-}
-
-.slider-left-btn-svg path,
-.slider-right-btn-svg path {
-    stroke: #403F3D;
-    transition: all .3s ease;
-}
-
-.slider-left-btn-svg:hover path,
-.slider-right-btn-svg:hover path {
-    stroke: #E1D4C9;
-}
-
-.slider-center {
-    width: 115.2rem;
-    height: 64rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.slide-photo {
-    width: 48rem;
-    height: 48rem;
-    margin-bottom: 2rem;
-}
-
-.slide-title {
-    width: 48rem;
-    height: 3rem;
-
-    color: var(--text-dark, #403F3D);
-    text-align: center;
-    font-feature-settings: 'clig' off, 'liga' off;
-
-    font-family: Inter;
-    font-size: 2.4rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 125%;
-
-    margin-bottom: 1.6rem;
-}
-
-.slide-text {
-    width: 48rem;
-    height: 4.8rem;
-
-    color: var(--text-dark, #403F3D);
-    text-align: center;
-    font-feature-settings: 'clig' off, 'liga' off;
-
-    font-family: Inter;
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%;
-
-    margin-bottom: 1.6rem;
-}
-
-.slide-price {
-    width: 48rem;
-    height: 3rem;
-
-    color: var(--text-dark, #403F3D);
-    text-align: center;
-    font-feature-settings: 'clig' off, 'liga' off;
-
-    font-family: Inter;
-    font-size: 2.4rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 125%;
-}
-
-.slider-control {
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-}
-
-.slider-control-1,
-.slider-control-2,
-.slider-control-3 {
-    width: 4rem;
-    height: 0.4rem;
-    border-radius: 10rem;
-    background: var(--border-light, #C1B6AD);
-}
-
-.slider-control-active {
-    background: var(--border-dark, #665F55);
-} */
 
 /*MENU*/
 
@@ -627,127 +388,6 @@ body {
 .item-box-8 {
     background-image: url(/coffee-house/assets/images/menu/coffee/coffee-8.jpg);
 }
-
-/*MOBILE*/
-
-/* .mobile {
-    width: 136rem;
-    height: 63rem;
-    display: flex;
-    gap: 10rem;
-    align-items: center;
-    margin-bottom: 10rem;
-}
-
-.mobile-title {
-    width: 63rem;
-    height: 15rem;
-    color: var(--text-dark, #403F3D);
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Inter;
-    font-size: 6rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 125%;
-    margin-bottom: 4rem;
-}
-
-.mobile-title span{
-    color: var(--text-accent, #B0907A);
-    font-style: italic;
-    font-size: 6rem;
-    font-weight: 600;
-    line-height: 125%;
-}
-
-.mobile-text {
-    width: 63rem;
-    height: 4.8rem;
-    color: var(--text-dark, #403F3D);
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Inter;
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%;
-    margin-bottom: 4rem;
-}
-
-.mobile-btns {
-    display: flex;
-    gap: 2rem;
-}
-
-.mobile-btn {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    width: 20rem;
-    height: 6.4rem;
-    border-radius: 10rem;
-    border: .1rem solid var(--border-dark, #665F55);
-    padding: 1.2rem 2rem;
-    gap: .8rem;
-    background-color: transparent;
-    transition: all .3s ease-in-out;
-}
-
-.mobile-btn-svg path {
-    transition: all .3s ease-in-out;
-}
-
-.mobile-bt-svg {
-    transition: all .3s ease-in-out;
-}
-
-.mobile-btn:hover {
-    background-color: #665F55;
-}
-
-.mobile-btn:hover .mobile-btn-suptitle,
-.mobile-btn:hover .mobile-btn-title {
-    color: #E1D4C9
-}
-
-.mobile-btn:hover .mobile-btn-svg path {
-    fill: #E1D4C9;
-}
-
-.mobile-btn-txt {
-    gap: .2rem
-}
-
-.mobile-btn-suptitle {
-    color: var(--text-dark, #403F3D);
-    text-align: start;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Inter;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 140%;
-    transition: all .3s ease-in-out;
-}
-
-.mobile-btn-title {
-    color: var(--text-dark, #403F3D);
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Inter;
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 150%;
-    transition: all .3s ease-in-out;
-}
-
-.mobile-right {
-    width: 63rem;
-    height: 63rem;
-    background-image: url(/coffee-house/assets/images/mobile/mobile-screens.png);
-    background-color: lightgray 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-} */
 
 /*FOOTER*/
 

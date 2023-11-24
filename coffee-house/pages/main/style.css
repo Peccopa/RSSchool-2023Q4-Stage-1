@@ -38,6 +38,8 @@ body {
     width: 144rem;
     margin: 0 auto;
     padding: 2rem 4rem 4rem;
+    opacity: 0;
+    transition: .3s ease-in;
 }
 
 /*HEADER-TOP*/
@@ -64,13 +66,11 @@ body {
     background-image: url(/coffee-house/assets/images/header/logo.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 100% 100%;
     transition: .3s ease-in-out;
 }
 
-.logo-img:hover::after {
+.logo-img:focus::after {
     transform: rotate3d(0, 0, 1, 360deg);
-    background-size: 75% 75%;
 }
 
 .nav-list {
@@ -392,6 +392,7 @@ body {
     height: 0.4rem;
     border-radius: 10rem;
     background: var(--border-light, #C1B6AD);
+    /* cursor: pointer; */
 }
 
 .slider-control-active {
@@ -695,6 +696,7 @@ svg path {
     background-color: transparent;
     transition: all .3s ease;
     cursor: pointer;
+    /* margin: 0; */
 }
 
 .footer-instagram:hover,
