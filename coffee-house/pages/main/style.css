@@ -35,7 +35,7 @@ body {
 }
 
 .page {
-    width: 144rem;
+    max-width: 144rem;
     margin: 0 auto;
     padding: 2rem 4rem 4rem;
     opacity: 0;
@@ -246,7 +246,7 @@ body {
 /*FAVORITE*/
 
 .favorite {
-    width: 136rem;
+    max-width: 136rem;
     height: 79.9rem;
 
     margin-bottom: 10rem;
@@ -486,7 +486,7 @@ body {
 /*MOBILE*/
 
 .mobile {
-    width: 136rem;
+    max-width: 136rem;
     height: 63rem;
     display: flex;
     gap: 10rem;
@@ -809,4 +809,40 @@ svg path {
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
+}
+
+
+
+/*MEDIA*/
+
+
+
+@media (max-width: 142rem) {
+    .about-title {
+        text-align: center;
+    }
+
+    .about-content {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .mobile {
+        /* display: flex; */
+        height: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .mobile-title {
+        text-align: center;
+    }
+
+    .mobile-text {
+        text-align: center;
+    }
+
+    .mobile-btns {
+        justify-content: center;
+    }
 }
