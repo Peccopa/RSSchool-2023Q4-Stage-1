@@ -300,6 +300,10 @@ body {
     border: 1px solid var(--border-light, #C1B6AD);
 }
 
+.menu-item:hover .item-box{
+    background-size: 100% 100%;
+}
+
 .item-box {
     width: 310px;
     height: 310px;
@@ -309,10 +313,6 @@ body {
     background-position: center;
     background-image: url(../../assets/images/menu/coffee/coffee-1.jpg);
     transition: all .3s ease-in-out;
-}
-
-.item-box:hover {
-    background-size: 100% 100%;
 }
 
 .item-description {
@@ -573,6 +573,10 @@ svg path {
 
 .contacts-item:hover::after {
     transform: scale(1);
+}
+
+.contacts-item:last-child {
+    pointer-events: none;
 }
 
 .contacts-svg {
