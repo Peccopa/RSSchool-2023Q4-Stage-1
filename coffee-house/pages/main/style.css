@@ -791,6 +791,10 @@ svg path {
     transform: scale(1);
 }
 
+.contacts-item:last-child {
+    pointer-events: none;
+}
+
 .contacts-svg {
     width: 2rem;
     height: 2rem;
