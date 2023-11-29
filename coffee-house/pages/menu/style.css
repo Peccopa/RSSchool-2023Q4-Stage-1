@@ -574,7 +574,7 @@ svg path {
 }
 
 .footer-info-title {
-    width: 53rem;
+    width: 100%;
     height: 3rem;
     align-self: stretch;
 
@@ -651,6 +651,36 @@ svg path {
 
 /*MEDIA*/
 
+/*1420*/
+
+@media (max-width: 1420px) {
+
+    .footer-info {
+        width: 50%;
+    }
+}
+
+/*1024*/
+
+@media (max-width: 1024px) {
+
+    .footer {
+        flex-direction: column;
+    }
+
+    .footer {
+        padding: 10rem 6rem;
+    }
+
+    .footer-offer {
+        width: 100%;
+    }
+
+    .footer-info {
+        width: 100%;
+    }
+}
+
 /*768*/
 
 @media (max-width: 768px) {
@@ -695,30 +725,5 @@ svg path {
         height: 24px;
         flex-shrink: 0;
     }
-
-    .footer {
-        flex-direction: column;
-    }
-
-    .footer {
-        padding: 10rem 6rem;
-    }
-
-    .footer-offer {
-        width: 100%;
-    }
-
-    .footer-info {
-        width: 100%;
-    }
-
-
-
-
-
-
-
-
-
 
 }
