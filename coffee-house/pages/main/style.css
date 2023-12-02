@@ -270,6 +270,8 @@ body {
     border-radius: 10rem;
     border: .1rem solid var(--border-dark, #665F55);
     background-color: transparent;
+
+    cursor: pointer;
 }
 
 .burger-lines {
@@ -664,7 +666,7 @@ body {
     width: 63rem;
     height: 63rem;
     background-image: url(../../assets/images/mobile/mobile-screens.png);
-    background-color: lightgray 50%;
+    background-color: lightgray;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% auto;
