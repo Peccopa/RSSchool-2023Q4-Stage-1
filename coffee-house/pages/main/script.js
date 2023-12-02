@@ -5,3 +5,5 @@ window.addEventListener('load', (event) => {
 });
 
 console.log('Coffee House - main page');
+
+//coffee-house-week2
