@@ -11,6 +11,10 @@ const burgerBtn = document.querySelector('.burger-btn');
 const burgerMenu = document.querySelector('.burger-menu');
 const burgerLine1 = document.querySelector('.burger-line-1');
 const burgerLine2 = document.querySelector('.burger-line-2');
+const headerMenu = document.querySelector('.header-menu');
+const navMenu = document.querySelectorAll('.nav-item');
+headerMenu.addEventListener('click', event => openOrCloseBurgerMenu());
+navMenu[navMenu.length - 1].addEventListener('click', event => openOrCloseBurgerMenu());
 burgerBtn.addEventListener('click', event => openOrCloseBurgerMenu());
 function openOrCloseBurgerMenu() {
     if (burgerMenu.classList.contains('burger-menu-opened')) {
