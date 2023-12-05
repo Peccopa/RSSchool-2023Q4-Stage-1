@@ -323,13 +323,9 @@ body {
 }
 
 .menu-items {
-    display: flex;
-    max-width: 136rem;
-    justify-content: center;
-    align-items: flex-start;
-    align-content: flex-start;
     gap: 4rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }
 
 .menu-item {
@@ -652,6 +648,20 @@ svg path {
 }
 
 /*MEDIA*/
+
+/*1430*/
+
+@media (max-width: 1430px) {
+
+    .menu-items {
+        display: flex;
+        max-width: 136rem;
+        justify-content: center;
+        align-items: flex-start;
+        align-content: flex-start;
+        flex-wrap: wrap;
+    }
+}
 
 /*1420*/
 
