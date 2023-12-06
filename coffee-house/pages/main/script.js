@@ -50,7 +50,50 @@ function openOrCloseBurgerMenu() {
     }
 }
 
+//SLIDER
 
+let frame = 0;
+const sliderLeftBtn = document.querySelector('.slider-left-btn');
+const sliderRightBtn = document.querySelector('.slider-right-btn');
+const sliderFrames = document.querySelector('.slider-frames');
+const sliderTransform = sliderFrames.style.transform = `translateX(${frame}%)`;
+const sliderControlItems = document.querySelectorAll('.slider-control-item');
+sliderLeftBtn.addEventListener('click', event => sliderToLeft());
+sliderRightBtn.addEventListener('click', event => sliderToRight());
 
+function sliderToLeft () {
+    sliderControlItems.forEach(element => {
+        element.classList.remove('slider-control-active');
+    });
+    if (frame === 0) {
+        frame = -66.66;
+        sliderControlItems[2].classList.add('slider-control-active');
+    } else if (frame === -33.33) {
+        frame = 0;
+        sliderControlItems[0].classList.add('slider-control-active');
+    } else if (frame === -66.66) {
+        frame = -33.33;
+        sliderControlItems[1].classList.add('slider-control-active');
+    }
+    sliderFrames.style.transform = `translateX(${frame}%)`;
+}
 
+function sliderToRight () {
+    sliderControlItems.forEach(element => {
+        element.classList.remove('slider-control-active');
+    });
+    if (frame === 0) {
+        frame = -33.33;
+        sliderControlItems[1].classList.add('slider-control-active');
+
+    } else if (frame === -33.33) {
+        frame = -66.66;
+        sliderControlItems[2].classList.add('slider-control-active');
+
+    } else if (frame === -66.66) {
+        frame = 0;
+        sliderControlItems[0].classList.add('slider-control-active');
+    }
+    sliderFrames.style.transform = `translateX(${frame}%)`;
+}
 

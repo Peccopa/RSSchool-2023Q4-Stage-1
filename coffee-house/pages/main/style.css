@@ -483,6 +483,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-bottom: 4rem;
+    /* overflow: hidden; */
 }
 
 .slider-left-btn,
@@ -530,10 +531,12 @@ body {
 
 .slider-center {
     width: 115.2rem;
+    width: 100%;
     height: 64rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* margin: 0 auto; */
 }
 
 .slide-photo {
@@ -608,6 +611,28 @@ body {
 
 .slider-control-active {
     background: var(--border-dark, #665F55);
+}
+
+/*FRAMES*/
+
+.slider-screen {
+    /* position: relative; */
+    overflow: hidden;
+    width: 100%;
+}
+
+.slider-frames {
+    /* position: absolute; */
+    /* overflow: hidden; */
+    display: flex;
+    justify-content: center;
+    width: 300%;
+    transform: translateX(0%);
+    transition: all 1s ease-in-out;
+}
+
+.slider-frame {
+    width: 100%;
 }
 
 /*ABOUT*/
