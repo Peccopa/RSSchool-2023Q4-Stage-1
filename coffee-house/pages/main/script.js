@@ -1,10 +1,10 @@
 'use strict';
 
 window.addEventListener('load', (event) => {
-    // document.querySelector('.page').style.opacity = '1';
-    // document.querySelector('.loading').style.opacity = '0';
-    document.querySelector('.page').classList.add('opacity-1');
-    document.querySelector('.loading').classList.add('opacity-0');
+    setTimeout(() => {
+        document.querySelector('.page').classList.add('opacity-1');
+        document.querySelector('.loading').classList.add('opacity-0');
+    }, 500);
 });
 
 console.log('Coffee House - main page');
@@ -52,48 +52,103 @@ function openOrCloseBurgerMenu() {
 
 //SLIDER
 
-let frame = 0;
+let sliderFrameNumber = 0;
+let innerActiveWeight = 0;
 const sliderLeftBtn = document.querySelector('.slider-left-btn');
 const sliderRightBtn = document.querySelector('.slider-right-btn');
 const sliderFrames = document.querySelector('.slider-frames');
-const sliderTransform = sliderFrames.style.transform = `translateX(${frame}%)`;
-const sliderControlItems = document.querySelectorAll('.slider-control-item');
+const sliderTransform = sliderFrames.style.transform = `translateX(${sliderFrameNumber}%)`;
+const sliderControlInner = document.querySelectorAll('.slider-control-inner');
+const sliderInnerActive = document.querySelector('.slider-inner-active');
 sliderLeftBtn.addEventListener('click', event => sliderToLeft());
 sliderRightBtn.addEventListener('click', event => sliderToRight());
 
+function fillControlInner(num) {
+    let inner = sliderControlInner[num];
+    let innerWeight = 1;
+    inner.classList.add('slider-inner-active');
+    inner.style.width = `${innerWeight}%`;
+    let innerInterval = setInterval(() => {
+        if (sliderFrames.getAttribute('mouseinframe') === 'out') {
+            if (inner.classList.contains('slider-inner-active')) {
+                inner.style.width = `${innerWeight += 1}%`;
+            } else {
+                clearInterval(innerInterval);
+            }
+            if (innerWeight === 102) {//120
+                clearInterval(innerInterval);
+                sliderToRight();
+            }
+        }
+    }, 50);
+}
+
 function sliderToLeft () {
-    sliderControlItems.forEach(element => {
-        element.classList.remove('slider-control-active');
+    sliderControlInner.forEach(element => {
+        element.classList.remove('slider-inner-active');
+        element.style.width = '0%';
     });
-    if (frame === 0) {
-        frame = -66.66;
-        sliderControlItems[2].classList.add('slider-control-active');
-    } else if (frame === -33.33) {
-        frame = 0;
-        sliderControlItems[0].classList.add('slider-control-active');
-    } else if (frame === -66.66) {
-        frame = -33.33;
-        sliderControlItems[1].classList.add('slider-control-active');
+    if (sliderFrameNumber === 0) {
+        sliderFrameNumber = -66.66;
+        fillControlInner(2);
+    } else if (sliderFrameNumber === -33.33) {
+        sliderFrameNumber = 0;
+        fillControlInner(0);
+    } else if (sliderFrameNumber === -66.66) {
+        sliderFrameNumber = -33.33;
+        fillControlInner(1);
     }
-    sliderFrames.style.transform = `translateX(${frame}%)`;
+    sliderFrames.style.transform = `translateX(${sliderFrameNumber}%)`;
 }
 
 function sliderToRight () {
-    sliderControlItems.forEach(element => {
-        element.classList.remove('slider-control-active');
+    sliderControlInner.forEach(element => {
+        element.classList.remove('slider-inner-active');
+        element.style.width = '0%';
     });
-    if (frame === 0) {
-        frame = -33.33;
-        sliderControlItems[1].classList.add('slider-control-active');
-
-    } else if (frame === -33.33) {
-        frame = -66.66;
-        sliderControlItems[2].classList.add('slider-control-active');
-
-    } else if (frame === -66.66) {
-        frame = 0;
-        sliderControlItems[0].classList.add('slider-control-active');
+    if (sliderFrameNumber === 0) {
+        sliderFrameNumber = -33.33;
+        fillControlInner(1);
+    } else if (sliderFrameNumber === -33.33) {
+        sliderFrameNumber = -66.66;
+        fillControlInner(2);
+    } else if (sliderFrameNumber === -66.66) {
+        sliderFrameNumber = 0;
+        fillControlInner(0);
     }
-    sliderFrames.style.transform = `translateX(${frame}%)`;
+    sliderFrames.style.transform = `translateX(${sliderFrameNumber}%)`;
 }
+
+sliderToLeft();
+sliderToRight();
+
+function setAttributeSliderFrame () {
+    sliderFrames.setAttribute('mouseinframe', 'out');
+    sliderFrames.addEventListener("mouseenter", (e) => {
+        sliderFrames.setAttribute('mouseinframe', 'in');
+    });
+    sliderFrames.addEventListener("mouseleave", (e) => {
+        sliderFrames.setAttribute('mouseinframe', 'out');
+    });
+}
+setAttributeSliderFrame();
+
+function touchScreen () {
+    let touchStartX = null;
+    const touchScreen = document.querySelector('.slider-screen');
+    touchScreen.addEventListener('touchstart', function(event) {
+        sliderFrames.setAttribute('mouseinframe', 'in');
+        touchStartX = event.changedTouches[0].screenX;
+    } , false);
+    touchScreen.addEventListener('touchend', function(event) {
+        let touchEndX = event.changedTouches[0].screenX;
+        if (touchStartX > touchEndX) {
+            sliderToRight();
+        } else if (touchStartX < touchEndX) {
+            sliderToLeft();
+        }
+        sliderFrames.setAttribute('mouseinframe', 'out');
+    }, false);
+}
+touchScreen();
 

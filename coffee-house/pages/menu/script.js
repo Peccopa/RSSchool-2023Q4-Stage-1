@@ -1,9 +1,9 @@
 'use strict';
 window.addEventListener('load', (event) => {
-    // document.querySelector('.page').style.opacity = '1';
-    // document.querySelector('.loading').style.opacity = '0';
-    document.querySelector('.page').classList.add('opacity-1');
-    document.querySelector('.loading').classList.add('opacity-0');
+    setTimeout(() => {
+        document.querySelector('.page').classList.add('opacity-1');
+        document.querySelector('.loading').classList.add('opacity-0');
+    }, 500);
 });
 console.log('Coffee House - menu page');
 
