@@ -377,6 +377,7 @@ body {
     border: .1rem solid var(--border-light, #C1B6AD);
     transition: all .3s ease;
     cursor: pointer;
+    transition: all .3s ease;
 }
 
 @media (hover: hover) {
@@ -390,6 +391,7 @@ body {
     background: var(--bg-container, #665F55);
     border: .1rem solid var(--bg-container, #665F55);
     cursor: auto;
+    pointer-events: none;
 }
 
 .tab-item-icon {
@@ -445,6 +447,7 @@ body {
     gap: 4rem;
     display: grid;
     grid-template-columns: auto auto auto auto;
+    transition: all .2s ease-out;
 }
 
 .menu-item {
@@ -454,7 +457,10 @@ body {
     flex-direction: column;
     align-items: center;
     border-radius: 4rem;
+    background-color: var(--bg-body);
     border: .1rem solid var(--border-light, #C1B6AD);
+
+    /* transition: all 1s ease-in-out; */
 }
 
 @media (hover: hover) {
@@ -470,7 +476,7 @@ body {
     border-radius: 4rem;
     background-size: 110% 110%;
     background-position: center;
-    background-image: url(../../assets/images/menu/coffee/coffee-1.jpg);
+    /* background-image: url(../../assets/images/menu/coffee/coffee-1.jpg); */
     transition: all .3s ease-in-out;
 }
 
@@ -523,34 +529,55 @@ body {
     line-height: 125%;
 }
 
-.item-box-1 {
-    background-image: url(../../assets/images/menu/coffee/coffee-1.jpg);
+/* .item-box-1 {
+    background-image: url(../../assets/images/menu/coffee/coffee-0.jpg);
 }
 .item-box-2 {
-    background-image: url(../../assets/images/menu/coffee/coffee-2.jpg);
+    background-image: url(../../assets/images/menu/coffee/coffee-1.jpg);
 }
 .item-box-3 {
-    background-image: url(../../assets/images/menu/coffee/coffee-3.jpg);
+    background-image: url(../../assets/images/menu/coffee/coffee-2.jpg);
 }
 .item-box-4 {
-    background-image: url(../../assets/images/menu/coffee/coffee-4.jpg);
+    background-image: url(../../assets/images/menu/coffee/coffee-3.jpg);
 }
 .item-box-5 {
-    background-image: url(../../assets/images/menu/coffee/coffee-5.jpg);
+    background-image: url(../../assets/images/menu/coffee/coffee-4.jpg);
 }
 .item-box-6 {
-    background-image: url(../../assets/images/menu/coffee/coffee-6.jpg);
+    background-image: url(../../assets/images/menu/coffee/coffee-5.jpg);
 }
 .item-box-7 {
-    background-image: url(../../assets/images/menu/coffee/coffee-7.jpg);
+    background-image: url(../../assets/images/menu/coffee/coffee-6.jpg);
 }
 .item-box-8 {
-    background-image: url(../../assets/images/menu/coffee/coffee-8.jpg);
-}
+    background-image: url(../../assets/images/menu/coffee/coffee-7.jpg);
+} */
 
 .ref-btn {
+    display: flex;
+    width: 6rem;
+    height: 6rem;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 10rem;
+    border: .1rem solid var(--border-dark, #665F55);
+    margin: 4rem auto 10rem;
+    cursor: pointer;
+
     display: none;
 }
+
+.ref-btn-svg {
+    width: 2.4rem;
+    height: 2.4rem;
+    flex-shrink: 0;
+
+    display: none;
+}
+
+
 
 /*FOOTER*/
 
@@ -916,14 +943,14 @@ svg path {
         width: 100%;
     }
 
-    .menu-item-5,
-    .menu-item-6,
-    .menu-item-7,
-    .menu-item-8 {
+    .menu-item:nth-child(5),
+    .menu-item:nth-child(6),
+    .menu-item:nth-child(7),
+    .menu-item:nth-child(8) {
         display: none;
     }
 
-    .ref-btn {
+    /* .ref-btn {
         display: flex;
         width: 6rem;
         height: 6rem;
@@ -933,12 +960,25 @@ svg path {
         border-radius: 10rem;
         border: .1rem solid var(--border-dark, #665F55);
         margin: 4rem auto 10rem;
-    }
+        cursor: pointer;
+    } */
 
-    .ref-btn-svg {
+    /* .ref-btn-svg {
         width: 2.4rem;
         height: 2.4rem;
         flex-shrink: 0;
+    } */
+
+    /* .ref-btn-svg:focus {
+        transform: rotate3d(0, 0, 1, 360deg);
+    } */
+
+    .ref-btn {
+        display: flex;
+    }
+
+    .ref-btn-svg {
+        display: flex;
     }
 
 }

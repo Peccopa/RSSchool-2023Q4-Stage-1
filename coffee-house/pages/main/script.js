@@ -29,12 +29,18 @@ const burgerBtn = document.querySelector('.burger-btn');
 const burgerMenu = document.querySelector('.burger-menu');
 const burgerLine1 = document.querySelector('.burger-line-1');
 const burgerLine2 = document.querySelector('.burger-line-2');
-for(let elem of document.querySelectorAll('.nav-item')) {
+
+
+for (let elem of document.querySelectorAll('.nav-item')) {
     elem.addEventListener('click', event => openOrCloseBurgerMenu());
 }
 burgerBtn.addEventListener('click', event => openOrCloseBurgerMenu());
+
+
 function openOrCloseBurgerMenu() {
     const scrollWidth = isHasScroll();
+    console.log(document.querySelector('.page').offsetWidth, scrollWidth, 768 - scrollWidth);
+    if (document.querySelector('.page').offsetWidth + scrollWidth > 768) return;
     if (burgerMenu.classList.contains('burger-menu-opened')) {
         burgerMenu.classList.remove('burger-menu-opened');
         burgerLine1.classList.remove('burger-line-to-cross-1');
@@ -152,3 +158,23 @@ function touchScreen () {
 }
 touchScreen();
 
+function mouseScreen () {
+    let mouseStartX = null;
+    const mouseScreen = document.querySelector('.slider-screen');
+    mouseScreen.addEventListener('mousedown', function(event) {
+        sliderFrames.setAttribute('mouseinframe', 'in');
+        console.log(event.screenX);
+        mouseStartX = event.screenX;
+    } , false);
+    mouseScreen.addEventListener('mouseup', function(event) {
+        console.log(event.screenX);
+        let mouseEndX = event.screenX;
+        if (mouseStartX > mouseEndX) {
+            sliderToRight();
+        } else if (mouseStartX < mouseEndX) {
+            sliderToLeft();
+        }
+        sliderFrames.setAttribute('mouseinframe', 'out');
+    }, false);
+}
+mouseScreen();

@@ -543,6 +543,7 @@ body {
     width: 48rem;
     height: 48rem;
     margin-bottom: 2rem;
+    pointer-events: none;
 }
 
 .slide-title {
