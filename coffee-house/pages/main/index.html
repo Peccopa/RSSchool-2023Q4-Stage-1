@@ -6,42 +6,50 @@
     <meta name="description" content="Coffee House is a RSSchool project where you will need to create a website consisting of two pages, make it responsive, and add interactivity.">
     <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="../../assets/icons/favicon.png" type="image/x-icon">
-    <script src="./script.js" defer></script>
+    <script type="module" src="./script.js" defer></script>
     <title>Coffee House - main page</title>
 </head>
 <body>
+<div class="loading">
+    <div class="loader"></div>
+</div>
 <div class="page">
 <header class="header">
     <div class="header-top">
         <div class="logo">
             <a class="logo-img" href="./index.html"></a>
         </div>
-        <nav class="nav">
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a class="nav-item-link" href="#favorite">Favorite coffee</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item-link" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item-link" href="#mobile">Mobile app</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item-link" href="#contacts">Contact us</a>
-                </li>
-            </ul>
-        </nav>
-        <a class="header-menu" href="../menu/index.html">
-            <p class="header-menu-link">Menu</p>
-            <img class="header-menu-img" src="../../assets/icons/coffee-cup.png" alt="">
-        </a>
+        <div class="burger-menu">
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a class="nav-item-link" href="#favorite">Favorite coffee</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item-link" href="#mobile">Mobile app</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item-link" href="#contacts">Contact us</a>
+                    </li>
+                </ul>
+            </nav>
+            <a class="header-menu" href="../menu/index.html">
+                <p class="header-menu-link">Menu</p>
+                <img class="header-menu-img" src="../../assets/icons/coffee-cup.png" alt="">
+            </a>
+        </div>
         <div class="burger-btn">
             <div class="burger-lines">
                 <div class="burger-line-1"></div>
                 <div class="burger-line-2"></div>
             </div>
         </div>
+    </div>
+    <div class="header-video">
+        <video src="../../assets/video/video-_2160p_.webm" muted autoplay loop></video>
     </div>
     <div class="header-content">
         <h1 class="header-title"><span>Enjoy</span> premium coffee at our charming cafe</h1>
@@ -52,7 +60,7 @@
         </a>
     </div>
 </header>
-<main>
+<main class="main">
     <div class="favorite" id="favorite">
         <h2 class="favorite-title">Choose your <span>favorite</span> coffee</h2>
         <div class="favorite-slider">
@@ -63,11 +71,33 @@
                         <path d="M36.5 30H24M24 30L30 24M24 30L30 36" stroke="#403F3D" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
-                <div class="slider-center">
-                    <img class="slide-photo" src="../../assets/images/favorite/coffee-slider-1.png" alt="Our drinks">
-                    <h3 class="slide-title">S’mores Frappuccino</h3>
-                    <p class="slide-text">This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.</p>
-                    <p class="slide-price">$5.50</p>
+                <div class="slider-screen">
+                    <div class="slider-frames">
+                        <div class="slider-frame slider-frame-1">
+                            <div class="slider-center">
+                                <img class="slide-photo" src="../../assets/images/favorite/coffee-slider-1.png" alt="Our drinks">
+                                <h3 class="slide-title">S’mores Frappuccino</h3>
+                                <p class="slide-text">This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.</p>
+                                <p class="slide-price">$5.50</p>
+                            </div>
+                        </div>
+                        <div class="slider-frame slider-frame-2">
+                            <div class="slider-center">
+                                <img class="slide-photo" src="../../assets/images/favorite/coffee-slider-2.png" alt="Our drinks">
+                                <h3 class="slide-title">Caramel Macchiato</h3>
+                                <p class="slide-text">Fragrant and unique classic espresso with rich caramel-peanut syrup, with cream under whipped thick foam.</p>
+                                <p class="slide-price">$5.00</p>
+                            </div>
+                        </div>
+                        <div class="slider-frame slider-frame-3">
+                            <div class="slider-center">
+                                <img class="slide-photo" src="../../assets/images/favorite/coffee-slider-3.png" alt="Our drinks">
+                                <h3 class="slide-title">Ice coffee</h3>
+                                <p class="slide-text">A popular summer drink that tones and invigorates. Prepared from coffee, milk and ice.</p>
+                                <p class="slide-price">$4.50</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <button class="slider-right-btn">
                     <svg class="slider-right-btn-svg" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,9 +107,15 @@
                 </button>
             </div>
             <div class="slider-control">
-                <div class="slider-control-1 slider-control-active"></div>
-                <div class="slider-control-2"></div>
-                <div class="slider-control-3"></div>
+                <div class="slider-control-item slider-control-1">
+                    <div class="slider-control-inner slider-inner-active"></div>
+                </div>
+                <div class="slider-control-item slider-control-2">
+                    <div class="slider-control-inner"></div>
+                </div>
+                <div class="slider-control-item slider-control-3">
+                    <div class="slider-control-inner"></div>
+                </div>
             </div>
         </div>
     </div>
