@@ -1,3 +1,4 @@
+//сорри за качествао кода, температура 38.5
 import data from '../../assets/products.json' assert {type: 'json'};
 'use strict';
 window.addEventListener('load', (event) => {
@@ -55,7 +56,7 @@ burgerBtn.addEventListener('click', event => openOrCloseBurgerMenu());
 
 function openOrCloseBurgerMenu() {
     const scrollWidth = isHasScroll();
-    console.log(document.querySelector('.page').offsetWidth, scrollWidth, 768 - scrollWidth);
+    // console.log(document.querySelector('.page').offsetWidth, scrollWidth, 768 - scrollWidth);
     if (document.querySelector('.page').offsetWidth + scrollWidth > 768) return;
     if (burgerMenu.classList.contains('burger-menu-opened')) {
         burgerMenu.classList.remove('burger-menu-opened');
@@ -142,12 +143,15 @@ function createMenuElements(category) {
                 `;
             document.querySelector(`.item-box-${num}`).style.backgroundImage = `url(../../assets/images/menu/${category}/${category}-${num}.png)`;
             num ++;
-            menuItem.addEventListener('click', openModalWindow);
+            menuItem.addEventListener('click', (event) => {
+                openModalWindow(element, index);
+                // console.log(element);
+            });
         }
 
     });
     let menuItemsCount = document.querySelectorAll('.menu-item');
-    console.log(document.querySelector('body').offsetWidth + isHasScroll());
+    // console.log(document.querySelector('body').offsetWidth + isHasScroll());
 
     if (menuItemsCount.length <= 4 && document.querySelector('body').offsetWidth + isHasScroll() <= 768) {
         refBtn.style.display = 'none';
@@ -160,67 +164,71 @@ function createMenuElements(category) {
 }
 createMenuElements('coffee');
 
-
-function openModalWindow() {
-    const modal = document.querySelector('.modal');
-    const layer = document.querySelector('.layer');
+const modal = document.querySelector('.modal');
+const layer = document.querySelector('.layer');
+function openModalWindow(element, index) {
+    // let sizeTab = 0;
+    let addsCost = 0;
+    let sizeCost = Number(element.price);
+    // let totalSum = Number(element.price);
+    // console.log(totalSum);
     modal.innerHTML = `
     <div class="modal-box">
         <div class="modal-img"></div>
         <div class="modal-description">
             <div class="modal-title">
-                <h3 class="modal-title-title">Irish coffee</h3>
-                <p class="modal-title-text">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
+                <h3 class="modal-title-title">${element.name}</h3>
+                <p class="modal-title-text">${element.description}</p>
             </div>
             <div class="modal-size">
                 <p class="modal-size-title">Size</p>
                 <div class="size-btns">
-                    <div class="size-btn btn-active">
+                    <div class="size-btn btn-active" id="s">
                         <div class="size-btn-circle btn-circle-active">
                             <p class="size-btn-circle-text btn-circle-text-active">S</p>
                         </div>
-                        <p class="size-btn-text btn-text-active">200 ml</p>
+                        <p class="size-btn-text btn-text-active">${element.sizes.s.size}</p>
                     </div>
-                    <div class="size-btn">
+                    <div class="size-btn" id="m">
                         <div class="size-btn-circle">
                             <p class="size-btn-circle-text">M</p>
                         </div>
-                        <p class="size-btn-text">300 ml</p>
+                        <p class="size-btn-text">${element.sizes.m.size}</p>
                     </div>
-                    <div class="size-btn">
+                    <div class="size-btn" id="l">
                         <div class="size-btn-circle">
                             <p class="size-btn-circle-text">L</p>
                         </div>
-                        <p class="size-btn-text">400 ml</p>
+                        <p class="size-btn-text">${element.sizes.l.size}</p>
                     </div>
                 </div>
             </div>
             <div class="modal-additives">
                 <p class="modal-additives-title">Additives</p>
                 <div class="additives-btns">
-                    <div class="additives-btn">
+                    <div class="additives-btn" id="0">
                         <div class="additives-btn-circle">
                             <p class="additives-btn-circle-text">1</p>
                         </div>
-                        <p class="additives-btn-text">Sugar</p>
+                        <p class="additives-btn-text">${element.additives[0].name}</p>
                     </div>
-                    <div class="additives-btn">
+                    <div class="additives-btn" id="1">
                         <div class="additives-btn-circle">
                             <p class="additives-btn-circle-text">2</p>
                         </div>
-                        <p class="additives-btn-text">Cinnamon</p>
+                        <p class="additives-btn-text">${element.additives[1].name}</p>
                     </div>
-                    <div class="additives-btn">
+                    <div class="additives-btn" id="2">
                         <div class="additives-btn-circle">
                             <p class="additives-btn-circle-text">3</p>
                         </div>
-                        <p class="additives-btn-text">Syrup</p>
+                        <p class="additives-btn-text">${element.additives[2].name}</p>
                     </div>
                 </div>
             </div>
             <div class="modal-total">
                 <h3 class="modal-total-title">Total:</h3>
-                <p class="modal-total-sum">$7.00</p>
+                <p class="modal-total-sum">$${sizeCost.toFixed(2)}</p>
             </div>
             <div class="modal-alert">
                 <svg class="modal-alert-svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -243,6 +251,13 @@ function openModalWindow() {
         </div>
     </div>
         `;
+    let num = index;
+    if (element.category === 'tea') {
+        num = index - 8;
+    } else if (element.category === 'dessert') {
+        num = index - 12;
+    }
+    document.querySelector('.modal-img').style.backgroundImage = `url(../../assets/images/menu/${element.category}/${element.category}-${num}.png)`;
     modal.style.display = 'block';
     layer.style.display = 'block';
     document.body.style.overflow = 'hidden';
@@ -250,23 +265,104 @@ function openModalWindow() {
     setTimeout(() => {
         modal.style.opacity = 1;
         layer.style.opacity = 1;
-    }, 300);
+    }, 200);
+
+    const sizeBtns = document.querySelectorAll('.size-btn');
+    sizeBtns.forEach(element1 => {
+        element1.addEventListener('click', (event) => {
+            sizeBtns.forEach(element2 => {
+                element2.classList.remove('btn-active');
+                element2.querySelector('.size-btn-circle').classList.remove('btn-circle-active');
+                element2.querySelector('.size-btn-circle-text').classList.remove('btn-circle-text-active');
+                element2.querySelector('.size-btn-text').classList.remove('btn-text-active');
+            });
+            element1.classList.add('btn-active');
+            element1.querySelector('.size-btn-circle').classList.add('btn-circle-active');
+            element1.querySelector('.size-btn-circle-text').classList.add('btn-circle-text-active');
+            element1.querySelector('.size-btn-text').classList.add('btn-text-active');
+            sizeCost = Number(element.price) + Number(element.sizes[element1.id]['add-price']);
+            // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price'])).toFixed(2);
+            // console.log(totalSum);
+            document.querySelector('.modal-total-sum').innerHTML = `$${(sizeCost + addsCost).toFixed(2)}`;
+        });
+    });
+
+    const addBtns = document.querySelectorAll('.additives-btn');
+    addBtns.forEach(element1 => {
+        element1.addEventListener('click', (event) => {
+            if (element1.classList.contains('add-active')) {
+                element1.classList.remove('add-active');
+                element1.querySelector('.additives-btn-circle').classList.remove('add-circle-active');
+                element1.querySelector('.additives-btn-circle-text').classList.remove('add-circle-text-active');
+                element1.querySelector('.additives-btn-text').classList.remove('add-text-active');
+                addsCost = addsCost - (Number(element.additives[element1.id]['add-price']));
+                console.log(addsCost);
+                // console.log(totalSum);
+                // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price'])).toFixed(2);
+                document.querySelector('.modal-total-sum').innerHTML = `$${(sizeCost + addsCost).toFixed(2)}`;
+            } else {
+                // console.log(element);
+                element1.classList.add('add-active');
+                element1.querySelector('.additives-btn-circle').classList.add('add-circle-active');
+                element1.querySelector('.additives-btn-circle-text').classList.add('add-circle-text-active');
+                element1.querySelector('.additives-btn-text').classList.add('add-text-active');
+                addsCost = addsCost + (Number(element.additives[element1.id]['add-price']));
+                // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price']) + adds).toFixed(2);
+                // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price'])).toFixed(2);
+                // console.log(element);
+                // document.querySelector('.modal-total-sum').innerHTML = `$${totalSum}`;
+                // console.log(adds);
+                document.querySelector('.modal-total-sum').innerHTML = `$${(sizeCost + addsCost).toFixed(2)}`;
+                // console.log(element.additives[element1.id]['add-price']);
+
+            }
+            // addBtns.forEach(element2 => {
+            //     element2.classList.remove('btn-active');
+            //     element2.querySelector('.size-btn-circle').classList.remove('btn-circle-active');
+            //     element2.querySelector('.size-btn-circle-text').classList.remove('btn-circle-text-active');
+            //     element2.querySelector('.size-btn-text').classList.remove('btn-text-active');
+            // });
+            // element1.classList.add('add-active');
+            // element1.querySelector('.additives-btn-circle').classList.add('add-circle-active');
+            // element1.querySelector('.additives-btn-circle-text').classList.add('add-circle-text-active');
+            // element1.querySelector('.additives-btn-text').classList.add('add-text-active');
+            // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price'])).toFixed(2);
+            // console.log(totalSum);
+            // document.querySelector('.modal-total-sum').innerHTML = `$${totalSum}`;
+        });
+    });
 
     const modalBtn = document.querySelector('.modal-btn');
     modalBtn.addEventListener('click', (event) => {
-        modal.style.opacity = 0;
-        layer.style.opacity = 0;
-        setTimeout(() => {
-            modal.style.display = 'none';
-            layer.style.display = 'none'
-            modal.innerHTML = ``;
-            document.body.style.overflow = 'auto';
-            document.body.style.padding = '0 0 0 0';
-        }, 300);
-
-
+        closeModalWindow();
+    });
+    layer.addEventListener('click', (event) => {
+        closeModalWindow();
     });
 }
+
+
+
+function closeModalWindow () {
+    modal.style.opacity = 0;
+    layer.style.opacity = 0;
+    setTimeout(() => {
+        modal.style.display = 'none';
+        layer.style.display = 'none'
+        modal.innerHTML = ``;
+        document.body.style.overflow = 'auto';
+        document.body.style.padding = '0 0 0 0';
+    }, 300);
+}
+
+document.addEventListener('keyup', (e) => {
+    if(e.key === 'Escape') {
+        closeModalWindow();
+    }
+});
+
+
+
 
 
 //ref btn
@@ -279,7 +375,7 @@ refBtn.addEventListener('click', (event) => {
             refBtn.querySelector('.ref-btn-svg').style.display = 'none';
         });
     }
-    console.log(menuItems);
+    // console.log(menuItems);
 });
 
 

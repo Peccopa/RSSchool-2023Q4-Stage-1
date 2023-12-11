@@ -32,10 +32,12 @@ html {
 body {
     background-color: var(--bg-body);
     color: var(--text-dark);
+
+    /* transition: all .3 ease; */
 }
 
 .page {
-    /* position: relative; */
+    position: relative;
     max-width: 144rem;
     margin: 0 auto;
     padding: 2rem 4rem 4rem;
@@ -121,11 +123,12 @@ body {
 /*HEADER-TOP*/
 
 .header-top {
-    position: relative;
+    /* position: relative; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    /* overflow: hidden; */
 }
 
 .burger-menu {
@@ -311,11 +314,6 @@ body {
 }
 
 /*MENU*/
-
-.main {
-    /* display: inline-block; */
-    /* position: relative; */
-}
 
 .menu {
     margin-bottom: 10rem;
@@ -940,6 +938,18 @@ body {
     cursor: pointer;
 }
 
+.add-active {
+    display: flex;
+    padding: 8px 16px 8px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    border-radius: 100px;
+    background: var(--background-container, #665F55);
+
+}
+
 .additives-btn-circle {
     display: flex;
     width: 30px;
@@ -950,6 +960,16 @@ body {
     border-radius: 100px;
     background: var(--border-light, #C1B6AD);
     transition: all .3s ease;
+}
+
+.add-circle-active {
+    display: flex;
+    padding: 3px 9px 3px 10px;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 100px;
+    background: var(--background-body, #E1D4C9);
 }
 
 .additives-btn-circle-text {
@@ -965,6 +985,19 @@ body {
     transition: all .3s ease;
 }
 
+.add-circle-text-active {
+    color: var(--text-dark, #403F3D);
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+
+
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+}
+
 .additives-btn-text {
     color: var(--text-dark, #403F3D);
     font-feature-settings: 'clig' off, 'liga' off;
@@ -975,6 +1008,17 @@ body {
     font-weight: 600;
     line-height: 150%;
     transition: all .3s ease;
+}
+
+.add-text-active {
+    color: var(--text-light, #E1D4C9);
+    font-feature-settings: 'clig' off, 'liga' off;
+
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
 }
 
 .modal-total {
@@ -1408,8 +1452,8 @@ svg path {
 
         flex-direction: column;
         justify-content: flex-start;
-        /* width: 100vw; */
-        width: 100%;
+        width: 100vw;
+        /* width: 100%; */
         /* height: 72.4rem; */
         height: 100vh;
         padding: 140px 40px 60px 40px;
@@ -1571,9 +1615,6 @@ svg path {
 
 @media (max-width: 390px) {
 
-    .modal-window {
-        /* padding: 0; */
-    }
 
     .modal-box {
         /* padding: 0; */
