@@ -9,8 +9,6 @@ window.addEventListener('load', (event) => {
 
 console.log('Coffee House - main page');
 
-//coffee-house-week3
-
 //isHasScroll
 function isHasScroll () {
     let divScroll = document.createElement('div');
@@ -39,7 +37,6 @@ burgerBtn.addEventListener('click', event => openOrCloseBurgerMenu());
 
 function openOrCloseBurgerMenu() {
     const scrollWidth = isHasScroll();
-    console.log(document.querySelector('.page').offsetWidth, scrollWidth, 768 - scrollWidth);
     if (document.querySelector('.page').offsetWidth + scrollWidth > 768) return;
     if (burgerMenu.classList.contains('burger-menu-opened')) {
         burgerMenu.classList.remove('burger-menu-opened');
@@ -163,11 +160,9 @@ function mouseScreen () {
     const mouseScreen = document.querySelector('.slider-screen');
     mouseScreen.addEventListener('mousedown', function(event) {
         sliderFrames.setAttribute('mouseinframe', 'in');
-        console.log(event.screenX);
         mouseStartX = event.screenX;
     } , false);
     mouseScreen.addEventListener('mouseup', function(event) {
-        console.log(event.screenX);
         let mouseEndX = event.screenX;
         if (mouseStartX > mouseEndX) {
             sliderToRight();

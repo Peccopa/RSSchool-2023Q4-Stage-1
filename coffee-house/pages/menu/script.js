@@ -15,7 +15,6 @@ console.log('Coffee House - menu page');
 //coffee-house-week3
 
 window.addEventListener('resize', function(event) {
-    // console.log(document.querySelector('body').offsetWidth + isHasScroll());
     if (document.querySelector('body').offsetWidth + isHasScroll() > 768) {
         refBtn.style.display = 'none';
         refBtn.querySelector('.ref-btn-svg').style.display = 'none';
@@ -23,12 +22,8 @@ window.addEventListener('resize', function(event) {
         && document.querySelectorAll('.menu-item').length > 4) {
         refBtn.style.display = 'flex';
         refBtn.querySelector('.ref-btn-svg').style.display = 'flex';
-        // createMenuElements('coffee');
     }
 }, true);
-
-// console.log(document.querySelectorAll('.menu-item').length > 4);
-
 
 //isHasScroll
 function isHasScroll() {
@@ -56,7 +51,6 @@ burgerBtn.addEventListener('click', event => openOrCloseBurgerMenu());
 
 function openOrCloseBurgerMenu() {
     const scrollWidth = isHasScroll();
-    // console.log(document.querySelector('.page').offsetWidth, scrollWidth, 768 - scrollWidth);
     if (document.querySelector('.page').offsetWidth + scrollWidth > 768) return;
     if (burgerMenu.classList.contains('burger-menu-opened')) {
         burgerMenu.classList.remove('burger-menu-opened');
@@ -125,8 +119,9 @@ function activateBtns (element) {
 function createMenuElements(category) {
     let num = 0;
     data.forEach((element, index) => {
-
         if (element.category === category) {
+            document.querySelector('.loading').classList.add('opacity-1');
+
             const menuItem = document.createElement('div');
             menuItem.className = `menu-item menu-item-${category}`;
             menuItem.id = index;
@@ -145,13 +140,12 @@ function createMenuElements(category) {
             num ++;
             menuItem.addEventListener('click', (event) => {
                 openModalWindow(element, index);
-                // console.log(element);
             });
         }
-
     });
+
+
     let menuItemsCount = document.querySelectorAll('.menu-item');
-    // console.log(document.querySelector('body').offsetWidth + isHasScroll());
 
     if (menuItemsCount.length <= 4 && document.querySelector('body').offsetWidth + isHasScroll() <= 768) {
         refBtn.style.display = 'none';
@@ -167,11 +161,8 @@ createMenuElements('coffee');
 const modal = document.querySelector('.modal');
 const layer = document.querySelector('.layer');
 function openModalWindow(element, index) {
-    // let sizeTab = 0;
     let addsCost = 0;
     let sizeCost = Number(element.price);
-    // let totalSum = Number(element.price);
-    // console.log(totalSum);
     modal.innerHTML = `
     <div class="modal-box">
         <div class="modal-img"></div>
@@ -251,6 +242,7 @@ function openModalWindow(element, index) {
         </div>
     </div>
         `;
+
     let num = index;
     if (element.category === 'tea') {
         num = index - 8;
@@ -258,6 +250,7 @@ function openModalWindow(element, index) {
         num = index - 12;
     }
     document.querySelector('.modal-img').style.backgroundImage = `url(../../assets/images/menu/${element.category}/${element.category}-${num}.png)`;
+
     modal.style.display = 'block';
     layer.style.display = 'block';
     document.body.style.overflow = 'hidden';
@@ -281,8 +274,6 @@ function openModalWindow(element, index) {
             element1.querySelector('.size-btn-circle-text').classList.add('btn-circle-text-active');
             element1.querySelector('.size-btn-text').classList.add('btn-text-active');
             sizeCost = Number(element.price) + Number(element.sizes[element1.id]['add-price']);
-            // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price'])).toFixed(2);
-            // console.log(totalSum);
             document.querySelector('.modal-total-sum').innerHTML = `$${(sizeCost + addsCost).toFixed(2)}`;
         });
     });
@@ -296,39 +287,16 @@ function openModalWindow(element, index) {
                 element1.querySelector('.additives-btn-circle-text').classList.remove('add-circle-text-active');
                 element1.querySelector('.additives-btn-text').classList.remove('add-text-active');
                 addsCost = addsCost - (Number(element.additives[element1.id]['add-price']));
-                console.log(addsCost);
-                // console.log(totalSum);
-                // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price'])).toFixed(2);
                 document.querySelector('.modal-total-sum').innerHTML = `$${(sizeCost + addsCost).toFixed(2)}`;
             } else {
-                // console.log(element);
+
                 element1.classList.add('add-active');
                 element1.querySelector('.additives-btn-circle').classList.add('add-circle-active');
                 element1.querySelector('.additives-btn-circle-text').classList.add('add-circle-text-active');
                 element1.querySelector('.additives-btn-text').classList.add('add-text-active');
                 addsCost = addsCost + (Number(element.additives[element1.id]['add-price']));
-                // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price']) + adds).toFixed(2);
-                // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price'])).toFixed(2);
-                // console.log(element);
-                // document.querySelector('.modal-total-sum').innerHTML = `$${totalSum}`;
-                // console.log(adds);
                 document.querySelector('.modal-total-sum').innerHTML = `$${(sizeCost + addsCost).toFixed(2)}`;
-                // console.log(element.additives[element1.id]['add-price']);
-
             }
-            // addBtns.forEach(element2 => {
-            //     element2.classList.remove('btn-active');
-            //     element2.querySelector('.size-btn-circle').classList.remove('btn-circle-active');
-            //     element2.querySelector('.size-btn-circle-text').classList.remove('btn-circle-text-active');
-            //     element2.querySelector('.size-btn-text').classList.remove('btn-text-active');
-            // });
-            // element1.classList.add('add-active');
-            // element1.querySelector('.additives-btn-circle').classList.add('add-circle-active');
-            // element1.querySelector('.additives-btn-circle-text').classList.add('add-circle-text-active');
-            // element1.querySelector('.additives-btn-text').classList.add('add-text-active');
-            // totalSum = (Number(element.price) + Number(element.sizes[element1.id]['add-price'])).toFixed(2);
-            // console.log(totalSum);
-            // document.querySelector('.modal-total-sum').innerHTML = `$${totalSum}`;
         });
     });
 
@@ -340,7 +308,6 @@ function openModalWindow(element, index) {
         closeModalWindow();
     });
 }
-
 
 
 function closeModalWindow () {
@@ -361,10 +328,6 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
-
-
-
-
 //ref btn
 refBtn.addEventListener('click', (event) => {
     let menuItemsCount = document.querySelectorAll('.menu-item');
@@ -375,7 +338,6 @@ refBtn.addEventListener('click', (event) => {
             refBtn.querySelector('.ref-btn-svg').style.display = 'none';
         });
     }
-    // console.log(menuItems);
 });
 
 
