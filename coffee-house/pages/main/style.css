@@ -285,6 +285,8 @@ body {
     height: 745px;
     position: absolute;
     z-index: -1;
+
+    background-image: url(../../assets/images/header/header-bg.jpg);
 }
 
 .header-content {
