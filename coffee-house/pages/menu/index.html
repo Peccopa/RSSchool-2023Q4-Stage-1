@@ -6,36 +6,42 @@
     <meta name="description" content="Coffee House is a RSSchool project where you will need to create a website consisting of two pages, make it responsive, and add interactivity.">
     <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="../../assets/icons/favicon.png" type="image/x-icon">
-    <script src="./script.js" defer></script>
+    <script type="module" src="./script.js"></script>
     <title>Coffee House - menu page</title>
 </head>
 <body>
+<div class="loading">
+    <div class="loader"></div>
+</div>
+<div class="layer"></div>
 <div class="page">
 <header class="header">
     <div class="header-top">
         <div class="logo">
             <a class="logo-img" href="../main/index.html"></a>
         </div>
-        <nav class="nav">
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a class="nav-item-link" href="../main/index.html#favorite">Favorite coffee</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item-link" href="../main/index.html#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item-link" href="../main/index.html#mobile">Mobile app</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item-link" href="#contacts">Contact us</a>
-                </li>
-            </ul>
-        </nav>
-        <a class="header-menu" href="#">
-            <p class="header-menu-link">Menu</p>
-            <img class="header-menu-img" src="../../assets/icons/coffee-cup.png" alt="">
-        </a>
+        <div class="burger-menu">
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a class="nav-item-link" href="../main/index.html#favorite">Favorite coffee</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item-link" href="../main/index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item-link" href="../main/index.html#mobile">Mobile app</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item-link" href="#contacts">Contact us</a>
+                    </li>
+                </ul>
+            </nav>
+            <a class="header-menu" href="#">
+                <p class="header-menu-link">Menu</p>
+                <img class="header-menu-img" src="../../assets/icons/coffee-cup.png" alt="">
+            </a>
+        </div>
         <div class="burger-btn">
             <div class="burger-lines">
                 <div class="burger-line-1"></div>
@@ -69,88 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="menu-items">
-            <div class="menu-item menu-item-1">
-                <div class="item-box item-box-1"></div>
-                <div class="item-description">
-                    <div class="item-text-block">
-                        <h3 class="item-text-title">Irish coffee</h3>
-                        <p class="item-text-p">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
-                    </div>
-                    <h4 class="item-cost">$7.00</h4>
-                </div>
-            </div>
-            <div class="menu-item menu-item-2">
-                <div class="item-box item-box-2"></div>
-                <div class="item-description">
-                    <div class="item-text-block">
-                        <h3 class="item-text-title">Kahlua coffee</h3>
-                        <p class="item-text-p">Classic coffee with milk and Kahlua liqueur under a cap of frothed milk</p>
-                    </div>
-                    <h4 class="item-cost">$7.00</h4>
-                </div>
-            </div>
-            <div class="menu-item menu-item-3">
-                <div class="item-box item-box-3"></div>
-                <div class="item-description">
-                    <div class="item-text-block">
-                        <h3 class="item-text-title">Honey raf</h3>
-                        <p class="item-text-p">Espresso with frothed milk, cream and aromatic honey</p>
-                    </div>
-                    <h4 class="item-cost">$5.50</h4>
-                </div>
-            </div>
-            <div class="menu-item menu-item-4">
-                <div class="item-box item-box-4"></div>
-                <div class="item-description">
-                    <div class="item-text-block">
-                        <h3 class="item-text-title">Ice cappuccino</h3>
-                        <p class="item-text-p">Cappuccino with soft thick foam in summer version with ice</p>
-                    </div>
-                    <h4 class="item-cost">$5.00</h4>
-                </div>
-            </div>
-            <div class="menu-item menu-item-5">
-                <div class="item-box item-box-5"></div>
-                <div class="item-description">
-                    <div class="item-text-block">
-                        <h3 class="item-text-title">Espresso</h3>
-                        <p class="item-text-p">Classic black coffee</p>
-                    </div>
-                    <h4 class="item-cost">$4.50</h4>
-                </div>
-            </div>
-            <div class="menu-item menu-item-6">
-                <div class="item-box item-box-6"></div>
-                <div class="item-description">
-                    <div class="item-text-block">
-                        <h3 class="item-text-title">Latte</h3>
-                        <p class="item-text-p">Espresso coffee with the addition of steamed milk and dense milk foam</p>
-                    </div>
-                    <h4 class="item-cost">$5.50</h4>
-                </div>
-            </div>
-            <div class="menu-item menu-item-7">
-                <div class="item-box item-box-7"></div>
-                <div class="item-description">
-                    <div class="item-text-block">
-                        <h3 class="item-text-title">Latte macchiato</h3>
-                        <p class="item-text-p">Espresso with frothed milk and chocolate</p>
-                    </div>
-                    <h4 class="item-cost">$5.50</h4>
-                </div>
-            </div>
-            <div class="menu-item menu-item-8">
-                <div class="item-box item-box-8"></div>
-                <div class="item-description">
-                    <div class="item-text-block">
-                        <h3 class="item-text-title">Coffee with cognac</h3>
-                        <p class="item-text-p">Fragrant black coffee with cognac and whipped cream</p>
-                    </div>
-                    <h4 class="item-cost">$6.50</h4>
-                </div>
-            </div>
-        </div>
+        <div class="menu-items"></div>
         <div class="ref-btn">
             <div class="ref-btn-svg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -160,6 +85,7 @@
             </div>
         </div>
     </div>
+    <div class="modal"></div>
 </main>
 <footer class="footer" id="contacts">
     <div class="footer-offer">
