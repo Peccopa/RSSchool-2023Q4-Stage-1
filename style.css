@@ -7,11 +7,12 @@
   margin: 0;
   border: 0;
   text-decoration: none;
+  list-style: none;
   box-sizing: border-box;
   user-select: none;
 }
 
-:root {
+/* :root {
   --bg-body: #E1D4C9;
   --bg-container: #665F55;
   --bg-backdrop: #403F3D;
@@ -22,4 +23,15 @@
 
   --border-light: #C1B6AD;
   --border-dark: #665F55;
+} */
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.game-box {
+  background-color: #fff;
 }
