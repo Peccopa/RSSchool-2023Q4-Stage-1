@@ -102,7 +102,10 @@
   border-color: transparent;
   margin: -40px 0 35px;
 }
-
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 
 

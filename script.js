@@ -8,7 +8,7 @@ let currentWord, correctLetters = [], wrongGuessCount = 0, maxGuesses = 6;
 
 function buildKeyboard() {
   for (let i = 0; i < keyboardArray.length; i += 1) {
-    if(keyboardArray[i] === 0) {
+    if(keyboardArray[i] === 'empty') {
       const emptyBtn = document.createElement('div');
       emptyBtn.className = 'empty-btn';
       guesserKeyboard.appendChild(emptyBtn);
@@ -43,9 +43,21 @@ function startGame (button, clicked) {
   } else {
     wrongGuessCount++;
   }
-  button.disabled = true;
+  button.classList.add('disabled');
   countNumber.innerText = `${wrongGuessCount} / ${maxGuesses}`;
+}
+
+function activateKeyboard () {
+  document.addEventListener('keydown', function(event) {
+    if (keyboardArray.includes(event.code)) {
+      let letter = event.code.slice(-1);
+      if (!document.querySelector(`#${letter}`).classList.contains('disabled')) {
+        startGame(document.querySelector(`#${letter}`), letter);
+      }
+    }
+  });
 }
 
 buildWord();
 buildKeyboard();
+activateKeyboard();
