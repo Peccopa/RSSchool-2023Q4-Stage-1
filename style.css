@@ -59,13 +59,14 @@
 .guesser__count {
   text-align: center;
   font-size: 1.6rem;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 1.5rem;
 }
 .hint__question,
 .count__number {
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 500;
+  font-style: italic;
 }
 .count__number {
   font-weight: 600;
@@ -95,8 +96,25 @@
 .keyboard-btn:hover {
   background-color: rgba(144, 238, 144, 0.5);
 }
+.empty-btn {
+  padding: .7rem;
+  width: calc(100% / 20 - .5rem);
+}
 
-@media (max-width: 768px) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 820px) {
   .game-box {
     flex-direction: column;
     padding: 3rem 1.5rem;
@@ -108,5 +126,14 @@
   }
   .scaffold__title {
     display: none;
+  }
+}
+@media (max-width: 400px) {
+  .empty-btn {
+    display: none;
+  }
+  .keyboard-btn {
+    font-size: 1.4rem;
+    padding: .7rem .2rem;
   }
 }
