@@ -98,7 +98,10 @@
   padding: .7rem;
   width: calc(100% / 20 - .5rem);
 }
-
+.guessed {
+  border-color: transparent;
+  margin: -40px 0 35px;
+}
 
 
 

@@ -3,7 +3,8 @@ import { data } from "./data.js";
 
 const guesserKeyboard = document.querySelector('.guesser__keyboard');
 const guesserLetters = document.querySelector('.guesser__letters');
-let currentWord;
+const countNumber = document.querySelector('.count__number');
+let currentWord, correctLetters = [], wrongGuessCount = 0, maxGuesses = 6;
 
 function buildKeyboard() {
   for (let i = 0; i < keyboardArray.length; i += 1) {
@@ -17,6 +18,7 @@ function buildKeyboard() {
       keyboardBtn.id = keyboardArray[i].slice(-1);
       keyboardBtn.innerText = keyboardArray[i].slice(-1);
       guesserKeyboard.appendChild(keyboardBtn);
+      keyboardBtn.addEventListener('click', event => startGame(event.target, keyboardArray[i].slice(-1)));
     }
   }
 }
@@ -27,6 +29,22 @@ function buildWord () {
   console.log(currentWord);
   document.querySelector('.hint__question').innerText = hint;
   guesserLetters.innerHTML = currentWord.split('').map(() => '<li class="guess-letter"></li>').join('');
+}
+
+function startGame (button, clicked) {
+  if(currentWord.includes(clicked)) {
+    [...currentWord].forEach((letter, index) => {
+      if(letter === clicked) {
+        correctLetters.push(letter);
+        guesserLetters.querySelectorAll('li')[index].innerText = letter;
+        guesserLetters.querySelectorAll('li')[index].classList.add('guessed');
+      }
+    });
+  } else {
+    wrongGuessCount++;
+  }
+  button.disabled = true;
+  countNumber.innerText = `${wrongGuessCount} / ${maxGuesses}`;
 }
 
 buildWord();
