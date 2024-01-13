@@ -1,5 +1,6 @@
 import { keyboardArray } from "./data.js";
 import { data } from "./data.js";
+import { human } from "./data.js";
 
 const guesserKeyboard = document.querySelector('.guesser__keyboard');
 const guesserLetters = document.querySelector('.guesser__letters');
@@ -26,7 +27,7 @@ function buildKeyboard() {
 function buildWord () {
   const { word, hint } = data[Math.floor(Math.random() * data.length)];
   currentWord = word.toUpperCase();
-  console.log(currentWord);
+  console.log(`Guessed word is: ${currentWord}`);
   document.querySelector('.hint__question').innerText = hint;
   guesserLetters.innerHTML = currentWord.split('').map(() => '<li class="guess-letter"></li>').join('');
 }
@@ -41,7 +42,9 @@ function startGame (button, clicked) {
       }
     });
   } else {
-    wrongGuessCount++;
+    wrongGuessCount += 1;
+    let humanSvg = document.querySelector('.human');
+    humanSvg.innerHTML += human[wrongGuessCount];
   }
   button.classList.add('disabled');
   countNumber.innerText = `${wrongGuessCount} / ${maxGuesses}`;
