@@ -1,6 +1,9 @@
 import { keyboardArray } from "./data.js";
+import { data } from "./data.js";
 
 const guesserKeyboard = document.querySelector('.guesser__keyboard');
+const guesserLetters = document.querySelector('.guesser__letters');
+let currentWord;
 
 function buildKeyboard() {
   for (let i = 0; i < keyboardArray.length; i += 1) {
@@ -18,4 +21,13 @@ function buildKeyboard() {
   }
 }
 
+function buildWord () {
+  const { word, hint } = data[Math.floor(Math.random() * data.length)];
+  currentWord = word.toUpperCase();
+  console.log(currentWord);
+  document.querySelector('.hint__question').innerText = hint;
+  guesserLetters.innerHTML = currentWord.split('').map(() => '<li class="guess-letter"></li>').join('');
+}
+
+buildWord();
 buildKeyboard();
