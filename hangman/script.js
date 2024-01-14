@@ -150,7 +150,7 @@ function restartGame () {
 
 function activateKeyboard () {
   document.addEventListener('keydown', function(event) {
-    if (keyboardArray.includes(event.code)) {
+    if (keyboardArray.includes(event.code) && !document.querySelector('.show-modal')) {
       let letter = event.code.slice(-1);
       if (!document.querySelector(`#${letter}`).classList.contains('disabled')) {
         gameStart(document.querySelector(`#${letter}`), letter);
