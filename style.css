@@ -34,6 +34,7 @@
   font-size: 2.8rem;
   text-align: center;
   text-transform: uppercase;
+  margin-bottom: 2rem;
 }
 .game-box__guesser {
   display: flex;
@@ -171,7 +172,8 @@
     max-width: 20rem;
   }
   .scaffold__title {
-    display: none;
+    font-size: 2rem;
+    margin-bottom: -2rem;
   }
 }
 @media (max-width: 400px) {

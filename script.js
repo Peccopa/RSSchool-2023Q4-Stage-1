@@ -42,14 +42,15 @@ const gameBoxScaffold = document.createElement('section');
 gameBoxScaffold.className = 'game-box__scaffold';
 gameBox.append(gameBoxScaffold);
 
+const scaffoldTitle = document.createElement('h1');
+scaffoldTitle.className = 'scaffold__title';
+scaffoldTitle.innerText = 'Hangman';
+gameBoxScaffold.append(scaffoldTitle);
+
 const scaffoldSVG = document.createElement('div');
 scaffoldSVG.className = 'scaffold__svg';
 scaffoldSVG.innerHTML = scaffoldSVGinner;
 gameBoxScaffold.append(scaffoldSVG);
-
-const scaffoldTitle = document.createElement('h1');
-scaffoldTitle.className = 'scaffold__title';
-gameBoxScaffold.append(scaffoldTitle);
 
 const gameBoxGuesser = document.createElement('section');
 gameBoxGuesser.className = 'game-box__guesser';
