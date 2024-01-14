@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: lightgreen;
+  background-color: #6a5acd;
   padding: 0 2rem;
   opacity: 0;
   transition: all .5s ease-in-out;
@@ -83,13 +83,13 @@
 }
 .modal-content__btn,
 .keyboard-btn {
-  color: #fff;
+  color: aliceblue;
   font-size: 1.5rem;
   font-weight: 600;
   cursor: pointer;
   outline: none;
   border: none;
-  background-color: lightgreen;
+  background-color: slateblue;
   border-radius: .4rem;
   text-transform: uppercase;
   transition: all .2s ease-in-out;
@@ -100,7 +100,7 @@
 }
 .modal-content__btn:hover,
 .keyboard-btn:hover {
-  background-color: rgba(144, 238, 144, 0.5);
+  background-color: #695acd80;
 }
 .empty-btn {
   padding: .7rem;
@@ -153,7 +153,7 @@
 }
 .modal-content__word {
   font-size: 1.6rem;
-  color: lightgreen;
+  color: slateblue;
   font-weight: 600;
 }
 .modal-content__btn {
