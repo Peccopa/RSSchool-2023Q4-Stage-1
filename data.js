@@ -2,16 +2,52 @@ export const keyboardArray = ['KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'K
 
 export const data = [
   {
-    word: "zxcvbnm",
-    hint: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos!"
+    word: "Avocado",
+    hint: "What is the main ingredient in guacamole?"
   },
   {
-    word: "asdfghjkl",
-    hint: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos?"
+    word: "Seven",
+    hint: "In the story of Snow White, how many dwarfs are there?"
   },
   {
-    word: "qwertyuiop",
-    hint: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos!?"
+    word: "Zeus",
+    hint: "Who is the king of the gods in Greek mythology?"
+  },
+  {
+    word: "Nectar",
+    hint: "What do bees collect to make honey?"
+  },
+  {
+    word: "Earth",
+    hint: "Which planet is known as the “Blue Planet”?"
+  },
+  {
+    word: "Square",
+    hint: "Which geometric shape has four equal sides and four right angles?"
+  },
+  {
+    word: "Rice",
+    hint: "What is the main ingredient in the dish sushi?"
+  },
+  {
+    word: "Ulaanbaatar",
+    hint: "What is the capital city of Mongolia?"
+  },
+  {
+    word: "Ganymede",
+    hint: "What is the name of the largest moon of Jupiter?"
+  },
+  {
+    word: "Uranus",
+    hint: "What is the only planet that rotates on its side?"
+  },
+  {
+    word: "Rats",
+    hint: "What animal is known to laugh and has been proven to have a sense of humor?"
+  },
+  {
+    word: "Hippopotamus",
+    hint: "What animal’s milk is pink?"
   },
 ];
 

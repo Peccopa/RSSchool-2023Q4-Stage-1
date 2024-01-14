@@ -29,7 +29,8 @@ modalContent.append(modalContentWord);
 const modalContentBtn = document.createElement('button');
 modalContentBtn.className = 'modal-content__btn';
 modalContent.append(modalContentBtn);
-modalContentBtn.innerText = 'Play Again!'
+modalContentBtn.innerText = 'Play Again!';
+
 
 // Main block
 
@@ -103,7 +104,7 @@ function buildKeyboard() {
 function buildWord () {
   const { word, hint } = data[Math.floor(Math.random() * data.length)];
   currentWord = word.toUpperCase();
-  console.log(`Guessed word is: ${currentWord}`);
+  console.log(`The hidden word is: ${currentWord}`);
   hintQuestion.innerText = hint;
   guesserLetters.innerHTML = currentWord.split('').map(() => '<li class="guess-letter"></li>').join('');
   restartGame();
@@ -161,3 +162,8 @@ buildWord();
 buildKeyboard();
 activateKeyboard();
 modalContentBtn.addEventListener('click', buildWord);
+document.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter' && gameModal.classList.contains('show-modal')) {
+    buildWord();
+  }
+});
