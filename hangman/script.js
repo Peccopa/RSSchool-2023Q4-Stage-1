@@ -16,19 +16,15 @@ gameModal.append(modalContent);
 
 const modalContentTitle = document.createElement('h4');
 modalContentTitle.className = 'modal-content__title';
-modalContent.append(modalContentTitle);
 
 const modalContentText = document.createElement('p');
 modalContentText.className = 'modal-content__text';
-modalContent.append(modalContentText);
 
 const modalContentWord = document.createElement('span');
 modalContentWord.className = 'modal-content__word';
-modalContent.append(modalContentWord);
 
 const modalContentBtn = document.createElement('button');
 modalContentBtn.className = 'modal-content__btn';
-modalContent.append(modalContentBtn);
 modalContentBtn.innerText = 'Play Again!';
 
 
@@ -47,8 +43,11 @@ scaffoldTitle.className = 'scaffold__title';
 scaffoldTitle.innerText = 'Hangman';
 gameBoxScaffold.append(scaffoldTitle);
 
-const scaffoldSVG = document.createElement('div');
-scaffoldSVG.className = 'scaffold__svg';
+const scaffoldSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+scaffoldSVG.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
+scaffoldSVG.setAttribute('viewBox', '0 0 298.232 291');
+scaffoldSVG.setAttribute('width','270');
+scaffoldSVG.setAttribute('height', '291');
 scaffoldSVG.innerHTML = scaffoldSVGinner;
 gameBoxScaffold.append(scaffoldSVG);
 
@@ -107,7 +106,14 @@ function buildWord () {
   currentWord = word.toUpperCase();
   console.log(`The hidden word is: ${currentWord}`);
   hintQuestion.innerText = hint;
-  guesserLetters.innerHTML = currentWord.split('').map(() => '<li class="guess-letter"></li>').join('');
+  while (guesserLetters.firstChild) {
+    guesserLetters.removeChild(guesserLetters.lastChild);
+  }
+  const guessLetter = document.createElement('li');
+  guessLetter.className = 'guess-letter';
+  for (let i = 0; i < currentWord.length; i += 1) {
+    guesserLetters.append(guessLetter.cloneNode(true));
+  }
   restartGame();
 }
 
@@ -132,9 +138,13 @@ function gameStart (button, clicked) {
 
 function gameOver (isWin) {
   setTimeout(() => {
-    const modalText = isWin ? 'You guessed the word:' : 'The hidden word was:';
     modalContentTitle.innerText = `${isWin ? 'Congrats!' : 'Game Over!'}`;
-    modalContentText.innerHTML = `${modalText} <span class="modal-content__word">${currentWord}</span>`;
+    modalContentText.innerText = isWin ? 'You guessed the word: ' : 'The hidden word was: ';
+    modalContentWord.innerText = currentWord;
+    modalContent.append(modalContentTitle);
+    modalContent.append(modalContentText);
+    modalContentText.append(modalContentWord);
+    modalContent.append(modalContentBtn);
     gameModal.classList.add('show-modal');
   }, 100);
 }
