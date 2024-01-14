@@ -43,6 +43,8 @@
   list-style: none;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  min-height: 5rem;
 }
 .guess-letter {
   width: 2.8rem;
@@ -77,6 +79,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+.modal-content__btn,
 .keyboard-btn {
   color: #fff;
   font-size: 1.5rem;
@@ -87,10 +90,13 @@
   background-color: lightgreen;
   border-radius: .4rem;
   text-transform: uppercase;
-
+  transition: all .2s ease-in-out;
+}
+.keyboard-btn {
   padding: .7rem;
   width: calc(100% / 10 - .5rem);
 }
+.modal-content__btn:hover,
 .keyboard-btn:hover {
   background-color: rgba(144, 238, 144, 0.5);
 }
@@ -106,17 +112,51 @@
   opacity: 0.5;
   pointer-events: none;
 }
-
-
-
-
-
-
-
-
-
-
-
+.game-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 0 .1rem;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity .5s ease;
+}
+.show-modal {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-content {
+  background-color: aliceblue;
+  max-width: 42rem;
+  width: 100%;
+  text-align: center;
+  border-radius: 1rem;
+  padding: 3rem;
+  margin: 2rem;
+}
+.modal-content__title {
+  font-size: 2rem;
+}
+.modal-content__text {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 3rem;
+  font-weight: 500;
+}
+.modal-content__word {
+  font-size: 1.6rem;
+  color: lightgreen;
+  font-weight: 600;
+}
+.modal-content__btn {
+  padding: 1.2rem 2.3rem;
+}
 
 @media (max-width: 820px) {
   .game-box {
@@ -133,6 +173,9 @@
   }
 }
 @media (max-width: 400px) {
+  .body {
+    padding: 0 1rem;
+  }
   .empty-btn {
     display: none;
   }

@@ -2,15 +2,15 @@ export const keyboardArray = ['KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'K
 
 export const data = [
     {
-        word: "qwertyq",
+        word: "qwertdyq",
         hint: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos!"
     },
     {
-        word: "asdfgha",
+        word: "asddfgha",
         hint: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos?"
     },
     {
-        word: "zxcvbnz",
+        word: "zxcvddddddbnz",
         hint: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos!?"
     },
 ];

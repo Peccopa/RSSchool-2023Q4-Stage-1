@@ -11,6 +11,13 @@
   <title>Hangman Game</title>
 </head>
 <body class="body">
+  <div class="game-modal show-modal">
+    <div class="modal-content">
+      <h4 class="modal-content__title">Game Over!</h4>
+      <p class="modal-content__text">The hidden word was: <span class="modal-content__word">qwerty</span></p>
+      <button class="modal-content__btn">Play Again!</button>
+    </div>
+  </div>
   <main class="game-box">
     <section class="game-box__scaffold">
       <svg class="scaffold__svg" xmlns="http://www.w3.org/2000/svg" width="298.232" height="291" viewBox="0 0 298.232 291">
@@ -22,15 +29,6 @@
             <rect id="Rectangle_2988" data-name="Rectangle 2988" width="187" height="5" rx="2.5" transform="translate(16107.232 14400)"/>
             <rect id="Rectangle_2989" data-name="Rectangle 2989" width="5" height="49" rx="2.5" transform="translate(16289.232 14401)"/>
             <g class="human" id="human" data-name="Group 696">
-              <!-- <g id="human-head" data-name="Ellipse 32" transform="translate(16263.732 14445.247)" fill="none" stroke="#000" stroke-width="5">
-                <circle cx="27.5" cy="27.5" r="27.5" stroke="none"/>
-                <circle cx="27.5" cy="27.5" r="25" fill="none"/>
-              </g>
-              <rect id="human-body" data-name="Rectangle 2990" width="5" height="73" rx="2.5" transform="translate(16289.232 14498)"/>
-              <rect id="left-arm" data-name="Rectangle 2970" width="5" height="56" rx="2.5" transform="translate(16289.197 14498.247) rotate(45)"/>
-              <rect id="right-arm" data-name="Rectangle 2971" width="5" height="56" rx="2.5" transform="translate(16290.732 14501.782) rotate(-45)"/>
-              <rect id="left-leg" data-name="Rectangle 2967" width="5" height="56" rx="2.5" transform="translate(16291.197 14565.247) rotate(45)"/>
-              <path id="right-leg" data-name="Path 355" d="M5,2.5v51a2.5,2.5,0,0,1-5,0V2.5C0,1.119,5,1.119,5,2.5Z" transform="translate(16288.732 14568.783) rotate(-45)"/> -->
             </g>
           </g>
         </g>
@@ -38,15 +36,7 @@
       <h1 class="scaffold__title">Hangman Game</h1>
     </section>
     <section class="game-box__guesser">
-      <ul class="guesser__letters">
-        <li class="guess-letter">q</li>
-        <li class="guess-letter">w</li>
-        <li class="guess-letter">e</li>
-        <li class="guess-letter">w</li>
-        <li class="guess-letter">e</li>
-        <li class="guess-letter">r</li>
-        <li class="guess-letter">e</li>
-      </ul>
+      <ul class="guesser__letters"></ul>
       <h4 class="guesser__hint">
         Hint:
         <span class="hint__question">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos!</span>
