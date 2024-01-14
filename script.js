@@ -1,13 +1,21 @@
 import { keyboardArray } from "./data.js";
 import { data } from "./data.js";
 import { human } from "./data.js";
+import { htmlInner } from "./data.js";
 
+(function loadHTMLbody() {
+  document.body.innerHTML = htmlInner;
+  setTimeout(() => {
+    document.body.style.opacity = 1;
+  }, 300);
+}) ();
+
+let currentWord, correctLetters = [], wrongGuessCount = 0, maxGuesses = 6;
 const guesserKeyboard = document.querySelector('.guesser__keyboard');
 const guesserLetters = document.querySelector('.guesser__letters');
 const countNumber = document.querySelector('.count__number');
 const gameModal = document.querySelector('.game-modal');
 const humanSvg = document.querySelector('.human');
-let currentWord, correctLetters = [], wrongGuessCount = 0, maxGuesses = 6;
 
 function buildKeyboard() {
   for (let i = 0; i < keyboardArray.length; i += 1) {
