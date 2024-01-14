@@ -2,15 +2,15 @@ export const keyboardArray = ['KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'K
 
 export const data = [
     {
-        word: "qwertdyq",
+        word: "zxcvbnm",
         hint: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos!"
     },
     {
-        word: "asddfgha",
+        word: "asdfghjkl",
         hint: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos?"
     },
     {
-        word: "zxcvddddddbnz",
+        word: "qwertyuiop",
         hint: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quos!?"
     },
 ];
@@ -24,3 +24,5 @@ export const human = [
     '<rect id="left-leg" data-name="Rectangle 2967" width="5" height="56" rx="2.5" transform="translate(16291.197 14565.247) rotate(45)"/>',
     '<path id="right-leg" data-name="Path 355" d="M5,2.5v51a2.5,2.5,0,0,1-5,0V2.5C0,1.119,5,1.119,5,2.5Z" transform="translate(16288.732 14568.783) rotate(-45)"/>',
 ];
+
+export const htmlInner = '';
