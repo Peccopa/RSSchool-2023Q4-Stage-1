@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root {
+  --main-color-1: rgb(68, 0, 255);
+  --main-color-2: rgb(161, 126, 255);
+  --main-color-3: rgb(255, 255, 255);
+  --text-color-1: rgb(0, 0, 0);
+  --text-color-2: rgb(125, 125, 125);
+  --text-color-3: rgb(255, 255, 255);
+}
+
 *,
 ::before,
 ::after {
@@ -57,4 +66,3 @@
 .active-cell {
   background-color: black;
 }
-
