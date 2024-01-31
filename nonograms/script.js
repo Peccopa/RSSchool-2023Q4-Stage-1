@@ -7,13 +7,16 @@ window.addEventListener('load', () => {
 });
 
 const cells = 5;
-const frames = 3;
-const template = templates.temp15_1;
+const panelCells = 3; // fr1 = 3, fr2 = 5, fr3 = 8
+const frames = 1;
+const template = templates.temp5_1;
+console.log(template);
 const arrForLeftPanel = templateToLeftArr(template);
 const arrForTopPanel = templateToTopArr(template);
 const fieldArr = Array.from(Array(cells * frames), () =>
   new Array(cells * frames).fill(0)
 );
+console.log(arrForTopPanel);
 
 // Create game main elements
 
@@ -21,7 +24,8 @@ const gameBox = document.createElement('div');
 gameBox.className = 'game-box';
 document.body.append(gameBox);
 gameBox.style.gridTemplateColumns = `1fr ${frames}fr`;
-gameBox.style.gridTemplateRows = `1fr ${frames}fr`;
+// gameBox.style.gridTemplateRows = `1fr ${frames}fr`;
+gameBox.style.gridTemplateRows = `1fr`;
 
 const menuPanel = document.createElement('div');
 menuPanel.className = 'menu-panel';
@@ -54,10 +58,10 @@ function createTopPanel(frames) {
     topPanel.append(topFrame);
     topPanel.style.gridTemplateColumns = `repeat(${frames}, 1fr)`;
     let lastTop = 0;
-    for (let k = 0; k < cells; k += 1) {
+    for (let k = 0; k < panelCells; k += 1) {
       for (let j = 0; j < cells; j += 1) {
         const topCell = document.createElement('div');
-        topCell.className = 'top-cell';
+        topCell.className = `cell-${frames}`;
         topCell.id = cellId;
         topCell.innerText = newArr[cellId] ? newArr[cellId] : '';
         topFrame.append(topCell);
@@ -79,9 +83,11 @@ function createLeftPanel(frames) {
     leftFrame.id = `l-fr-${i}`;
     leftPanel.append(leftFrame);
     leftPanel.style.gridTemplateRows = `repeat(${frames}, 1fr)`;
-    for (let j = 0; j < cells * cells; j += 1) {
+    leftFrame.style.gridTemplateColumns = `repeat(${panelCells}, 1fr)`;
+    gameBox.style.gridTemplateColumns = `${panelCells / frames}fr ${cells}fr`;
+    for (let j = 0; j < panelCells * cells; j += 1) {
       const leftCell = document.createElement('div');
-      leftCell.className = 'left-cell';
+      leftCell.className = `cell-${frames}`;
       leftCell.id = `l-cell-${j + i * cells * 5}`;
       leftCell.innerText = newArr[count] ? newArr[count] : '';
       leftFrame.append(leftCell);
@@ -102,7 +108,7 @@ function createGameField(frames) {
     for (let k = 0; k < cells; k += 1) {
       for (let j = 0; j < cells; j += 1) {
         const gameCell = document.createElement('div');
-        gameCell.className = 'game-cell';
+        gameCell.className = `cell-${frames}`;
         gameCell.id = cellId;
         gameFrame.append(gameCell);
         gameCell.addEventListener('click', (cell) => {
@@ -147,7 +153,7 @@ function templateToLeftArr(template) {
         sum = 0;
       }
     }
-    while (arr.length < 5) {
+    while (arr.length < panelCells) {
       arr.unshift(0);
     }
     result.push(arr);
@@ -170,7 +176,7 @@ function templateToTopArr(template) {
         sum = 0;
       }
     }
-    while (arr.length < 5) {
+    while (arr.length < panelCells) {
       arr.push(0);
     }
     newArr.push(arr);

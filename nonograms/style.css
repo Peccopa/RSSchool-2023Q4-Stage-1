@@ -29,60 +29,171 @@
   background-color: var(--main-color-2);
   padding: 0 2rem;
   opacity: 0;
-  transition: all 0.5s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 .game-box {
-  min-width: 20rem;
-  min-height: 20rem;
+  /* width: 100%; */
+  /* height: 100vh; */
+  /* min-width: 30rem; */
+  /* min-height: 30rem; */
   border: 2px solid var(--main-color-0);
   display: grid;
 }
 
 .menu-panel {
-  min-width: 10rem;
-  min-height: 10rem;
+  /* min-width: 10rem; */
+  /* min-height: 10rem; */
   border: 2px solid var(--main-color-0);
 }
 
 .top-panel {
-  min-width: 10rem;
-  min-height: 10rem;
+  /* min-width: 10rem; */
+  /* min-height: 10rem; */
   display: grid;
 }
 
 .left-panel {
-  min-width: 10rem;
-  min-height: 10rem;
+  /* min-width: 10rem; */
+  /* min-height: 10rem; */
   display: grid;
 }
 
 .game-field {
-  min-width: 10rem;
-  min-height: 10rem;
+  /* min-width: 10rem; */
+  /* min-height: 10rem; */
   display: grid;
 }
 
 .top-frame,
 .left-frame,
 .game-frame {
-  min-width: 10rem;
-  min-height: 10rem;
+  /* min-width: 10rem; */
+  /* min-height: 10rem; */
   border: 1px solid var(--main-color-0);
 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
 }
-.top-cell,
-.left-cell,
-.game-cell {
-  min-width: 2rem;
-  min-height: 2rem;
+
+.cell-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 8rem;
+  min-height: 8rem;
+  /* min-width: 10vw; */
+  /* min-height: 10vw; */
   border: 1px solid var(--main-color-0);
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 900;
-  text-align: center;
+}
+
+.cell-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 5rem;
+  min-height: 5rem;
+  /* min-width: 5.5vw; */
+  /* min-height: 5.5vw; */
+  border: 1px solid var(--main-color-0);
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.cell-3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 3rem;
+  min-height: 3rem;
+  /* min-width: 3.5vw; */
+  /* min-height: 3.5vw; */
+  border: 1px solid var(--main-color-0);
+  font-size: 2rem;
+  font-weight: 900;
 }
 .active-cell {
   background-color: var(--main-color-0);
+}
+
+@media (max-width: 800px) {
+  .cell-1 {
+    min-width: 7rem;
+    min-height: 7rem;
+  }
+  .cell-2 {
+    min-width: 4rem;
+    min-height: 4rem;
+  }
+  .cell-3 {
+    min-width: 2.7rem;
+    min-height: 2.7rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .cell-1 {
+    min-width: 6rem;
+    min-height: 6rem;
+  }
+  .cell-2 {
+    min-width: 3rem;
+    min-height: 3rem;
+  }
+  .cell-3 {
+    min-width: 2.2rem;
+    min-height: 2.2rem;
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .cell-1 {
+    min-width: 5rem;
+    min-height: 5rem;
+  }
+  .cell-2 {
+    min-width: 3rem;
+    min-height: 3rem;
+  }
+  .cell-3 {
+    min-width: 2rem;
+    min-height: 2rem;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .cell-1 {
+    min-width: 4rem;
+    min-height: 4rem;
+  }
+  .cell-2 {
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+  }
+  .cell-3 {
+    min-width: 1.6rem;
+    min-height: 1.6rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .cell-1 {
+    min-width: 3rem;
+    min-height: 3rem;
+  }
+  .cell-2 {
+    min-width: 2rem;
+    min-height: 2rem;
+    font-size: 1.6rem;
+  }
+  .cell-3 {
+    min-width: 1.3rem;
+    min-height: 1.3rem;
+    font-size: 1rem;
+  }
 }
