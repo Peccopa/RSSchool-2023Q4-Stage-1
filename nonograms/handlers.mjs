@@ -46,3 +46,7 @@ export function templateToTopArr(template, tempSize) {
   template.pop();
   return result;
 }
+
+export function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}

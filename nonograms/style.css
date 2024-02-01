@@ -26,14 +26,14 @@
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
-  background-color: var(--main-color-2);
+  background-color: var(--main-color-3);
   padding: 0 2rem;
   opacity: 0;
   transition: all 1s ease-in-out;
 }
 
 .game-box {
-  border: 1px solid var(--main-color-0);
+  border: .1rem solid var(--main-color-0);
   display: grid;
 }
 
@@ -42,8 +42,21 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid var(--main-color-0);
+  border: .2rem solid var(--main-color-0);
   font-weight: 900;
+}
+
+.menu-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border: .2rem solid var(--main-color-0);
+  border-radius: .5rem;
+  color: var(--main-color-0);
+  font-size: 2rem;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
 }
 
 .game-timer {
@@ -54,6 +67,7 @@
   padding: 1rem;
   border: .2rem solid var(--main-color-0);
   border-radius: .5rem;
+  /* background-color: var(--text-color-2); */
 }
 
 .timer-min {
@@ -103,28 +117,29 @@
   transition: all .3s ease-in-out;
 }
 
+.menu-title:hover,
 .menu-btn:hover,
 .reset-btn:hover {
-  background-color: var(--main-color-1);
+  background-color: var(--text-color-2);
 }
 
 .top-panel {
-  border: 1px solid var(--main-color-0);
+  border: .1rem solid var(--main-color-0);
   display: grid;
 }
 
 .left-panel {
-  border: 1px solid var(--main-color-0);
+  border: .1rem solid var(--main-color-0);
   display: grid;
 }
 
 .game-panel {
-  border: 1px solid var(--main-color-0);
+  border: .1rem solid var(--main-color-0);
   display: grid;
 }
 
 .cell {
-  border: 1px solid var(--main-color-0);
+  border: .1rem solid var(--main-color-0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,8 +155,8 @@
 }
 
 .size-3 {
-  min-width: 8rem;
-  min-height: 8rem;
+  min-width: 10rem;
+  min-height: 10rem;
   font-size: 2rem;
   font-weight: 900;
 }
@@ -161,7 +176,14 @@
 }
 
 .active-cell {
+  /* background-color: var(--main-color-0); */
+  background-color: var(--text-color-2);
+  transition: all .3s ease-in-out;
+}
+
+.winner-cell {
   background-color: var(--main-color-0);
+  transition: all .3s ease-in-out;
 }
 
 /*

@@ -1,5 +1,5 @@
 import { templates } from './data.mjs';
-import { templateToLeftArr, templateToTopArr } from './handlers.mjs';
+import { templateToLeftArr, templateToTopArr, randomInt } from './handlers.mjs';
 
 window.addEventListener('load', () => {
   setTimeout(() => {
@@ -9,49 +9,70 @@ window.addEventListener('load', () => {
 
 // Variables
 
-const template = templates.temp3_2;
-const tempSize = template.shift(); // 3, 5, 8
-const tempName = template.shift();
 
-const arrForLeftPanel = templateToLeftArr(template, tempSize);
-const arrForTopPanel = templateToTopArr(template, tempSize);
 
-let gamePanelArr = Array.from(Array(template[0].length), () =>
-  new Array(template[0].length).fill(0)
-);
+let template = templates[randomInt(0, 4)].map((arr) => arr.slice());
+let tempSize, tempName, arrForLeftPanel, arrForTopPanel, gamePanelArr;
+
+createMatrix(template);
+
+function createMatrix(template) {
+  tempSize = template.shift();
+  tempName = template.shift();
+  arrForLeftPanel = templateToLeftArr(template, tempSize);
+  arrForTopPanel = templateToTopArr(template, tempSize);
+  gamePanelArr = Array.from(Array(template[0].length), () =>
+    new Array(template[0].length).fill(0)
+  );
+}
 
 //Create main elements
-
 const container = document.createElement('div');
-container.className = 'container';
-document.body.append(container);
-
 const gameBox = document.createElement('div');
-gameBox.className = 'game-box';
-container.append(gameBox);
-gameBox.style.gridTemplateColumns = `${arrForLeftPanel[0].length}fr ${template[0].length}fr`;
-
 const menuPanel = document.createElement('div');
-menuPanel.className = 'menu-panel';
-gameBox.append(menuPanel);
-
 const topPanel = document.createElement('div');
-topPanel.className = 'top-panel';
-gameBox.append(topPanel);
-fillPanels(arrForTopPanel, topPanel);
-topPanel.style.gridTemplateColumns = `repeat(${arrForTopPanel[0].length}, 1fr`;
-
 const leftPanel = document.createElement('div');
-leftPanel.className = 'left-panel';
-gameBox.append(leftPanel);
-fillPanels(arrForLeftPanel, leftPanel);
-leftPanel.style.gridTemplateColumns = `repeat(${arrForLeftPanel[0].length}, 1fr`;
-
 const gamePanel = document.createElement('div');
-gamePanel.className = 'game-panel';
-gameBox.append(gamePanel);
-fillPanels(template, gamePanel);
-gamePanel.style.gridTemplateColumns = `repeat(${template[0].length}, 1fr`;
+
+createMainElements();
+
+function createMainElements() {
+  container.className = 'container';
+  document.body.append(container);
+  gameBox.className = 'game-box';
+  container.append(gameBox);
+  gameBox.style.gridTemplateColumns = `${arrForLeftPanel[0].length}fr ${template[0].length}fr`;
+  menuPanel.className = 'menu-panel';
+  gameBox.append(menuPanel);
+  topPanel.className = 'top-panel';
+  gameBox.append(topPanel);
+  fillPanels(arrForTopPanel, topPanel);
+  topPanel.style.gridTemplateColumns = `repeat(${arrForTopPanel[0].length}, 1fr`;
+  leftPanel.className = 'left-panel';
+  gameBox.append(leftPanel);
+  fillPanels(arrForLeftPanel, leftPanel);
+  leftPanel.style.gridTemplateColumns = `repeat(${arrForLeftPanel[0].length}, 1fr`;
+  gamePanel.className = 'game-panel';
+  gameBox.append(gamePanel);
+  fillPanels(template, gamePanel);
+  gamePanel.style.gridTemplateColumns = `repeat(${template[0].length}, 1fr`;
+}
+
+// Create ingame menu elements
+
+const menuTitle = document.createElement('div');
+menuTitle.className = 'menu-title';
+menuPanel.append(menuTitle);
+menuTitle.innerText = `Guess: ${tempName}`;
+menuTitle.addEventListener('click', (btn) => {
+  topPanel.innerHTML = '';
+  leftPanel.innerHTML = '';
+  gamePanel.innerHTML = '';
+  template = templates[randomInt(0, 4)].map((arr) => arr.slice());
+  createMatrix(template);
+  createMainElements();
+  menuTitle.innerText = `Guess: ${tempName}`;
+});
 
 const gameTimer = document.createElement('div');
 gameTimer.className = 'game-timer';
@@ -82,8 +103,8 @@ resetBtn.addEventListener('click', (btn) => {
   gamePanelArr = Array.from(Array(template[0].length), () =>
     new Array(template[0].length).fill(0)
   );
-  gamePanel.querySelectorAll('.game-cell').forEach(element => {
-    element.classList.remove('active-cell', 'cross-cell');
+  gamePanel.querySelectorAll('.game-cell').forEach((element) => {
+    element.classList.remove('active-cell', 'cross-cell', 'game-cell-inactive');
     element.innerText = '';
   });
 });
@@ -148,15 +169,19 @@ function winGame() {
   const tempArr = template.map((e) => e.join('')).join('');
   const gameArr = gamePanelArr.map((e) => e.join('')).join('');
   if (tempArr === gameArr) {
+    resetBtn.innerText = 'Next';
     const cellArr = gamePanel.querySelectorAll('.game-cell');
     cellArr.forEach((element) => {
+      if (element.classList.contains('active-cell')) {
+        element.classList.add('winner-cell');
+      }
       element.classList.remove('cross-cell');
       element.classList.remove('game-cell');
       element.classList.add('game-cell-inactive');
       element.innerText = '';
     });
     setTimeout(() => {
-      alert('You win!');
+      console.log('Win!');
     }, 500);
   }
 }
