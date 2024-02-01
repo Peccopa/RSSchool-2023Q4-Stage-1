@@ -38,7 +38,74 @@
 }
 
 .menu-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   border: 1px solid var(--main-color-0);
+  font-weight: 900;
+}
+
+.game-timer {
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border: .2rem solid var(--main-color-0);
+  border-radius: .5rem;
+}
+
+.timer-min {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.timer-colon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.timer-sec {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.menu-btn {
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  padding: 1rem;
+  border: .2rem solid var(--main-color-0);
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.reset-btn {
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  padding: 1rem;
+  border: .2rem solid var(--main-color-0);
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.menu-btn:hover,
+.reset-btn:hover {
+  background-color: var(--main-color-1);
 }
 
 .top-panel {
@@ -63,23 +130,32 @@
   align-items: center;
 }
 
+.game-cell {
+  cursor: pointer;
+}
+
+.game-cell-inactive {
+  pointer-events: none;
+  cursor: default;
+}
+
 .size-3 {
-  min-width: 4rem;
-  min-height: 4rem;
+  min-width: 8rem;
+  min-height: 8rem;
   font-size: 2rem;
   font-weight: 900;
 }
 
 .size-5 {
-  min-width: 4rem;
-  min-height: 4rem;
+  min-width: 5.5rem;
+  min-height: 5.5rem;
   font-size: 2rem;
   font-weight: 900;
 }
 
 .size-8 {
-  min-width: 4rem;
-  min-height: 4rem;
+  min-width: 3.5rem;
+  min-height: 3.5rem;
   font-size: 2rem;
   font-weight: 900;
 }

@@ -9,14 +9,14 @@ window.addEventListener('load', () => {
 
 // Variables
 
-const template = templates.temp5_2;
+const template = templates.temp3_2;
 const tempSize = template.shift(); // 3, 5, 8
 const tempName = template.shift();
 
 const arrForLeftPanel = templateToLeftArr(template, tempSize);
 const arrForTopPanel = templateToTopArr(template, tempSize);
 
-const gamePanelArr = Array.from(Array(template[0].length), () =>
+let gamePanelArr = Array.from(Array(template[0].length), () =>
   new Array(template[0].length).fill(0)
 );
 
@@ -53,6 +53,41 @@ gameBox.append(gamePanel);
 fillPanels(template, gamePanel);
 gamePanel.style.gridTemplateColumns = `repeat(${template[0].length}, 1fr`;
 
+const gameTimer = document.createElement('div');
+gameTimer.className = 'game-timer';
+menuPanel.append(gameTimer);
+const timerMin = document.createElement('div');
+timerMin.className = 'timer-min';
+gameTimer.append(timerMin);
+timerMin.innerText = '07';
+const timerColon = document.createElement('div');
+timerColon.className = 'timer-colon';
+gameTimer.append(timerColon);
+timerColon.innerText = ':';
+const timerSec = document.createElement('div');
+timerSec.className = 'timer-sec';
+timerSec.innerText = '15';
+gameTimer.append(timerSec);
+
+const menuBtn = document.createElement('div');
+menuBtn.className = 'menu-btn';
+menuPanel.append(menuBtn);
+menuBtn.innerText = 'Menu';
+
+const resetBtn = document.createElement('div');
+resetBtn.className = 'reset-btn';
+menuPanel.append(resetBtn);
+resetBtn.innerText = 'Reset';
+resetBtn.addEventListener('click', (btn) => {
+  gamePanelArr = Array.from(Array(template[0].length), () =>
+    new Array(template[0].length).fill(0)
+  );
+  gamePanel.querySelectorAll('.game-cell').forEach(element => {
+    element.classList.remove('active-cell', 'cross-cell');
+    element.innerText = '';
+  });
+});
+
 //Functions
 
 function fillPanels(arrForPanel, panel) {
@@ -64,6 +99,7 @@ function fillPanels(arrForPanel, panel) {
     panel.append(cell);
     if (arrForPanel === template) {
       cell.id = i;
+      cell.classList.add(`game-cell`);
       cell.addEventListener('click', (cell) => {
         leftClickOnCell(cell.target);
       });
@@ -89,9 +125,7 @@ function leftClickOnCell(cell) {
     cell.classList.add('active-cell');
     gamePanelArr[row][col] = 1;
   }
-  if (JSON.stringify(gamePanelArr) === JSON.stringify(template)) {
-    winGame();
-  }
+  winGame();
 }
 
 function rightClickOnCell(cell) {
@@ -104,36 +138,28 @@ function rightClickOnCell(cell) {
   } else {
     cell.classList.remove('active-cell');
     cell.classList.add('cross-cell');
-    gamePanelArr[row][col] = 2;
+    gamePanelArr[row][col] = '0';
     cell.innerText = 'X';
   }
+  winGame();
 }
-
 
 function winGame() {
-  alert('You win!');
+  const tempArr = template.map((e) => e.join('')).join('');
+  const gameArr = gamePanelArr.map((e) => e.join('')).join('');
+  if (tempArr === gameArr) {
+    const cellArr = gamePanel.querySelectorAll('.game-cell');
+    cellArr.forEach((element) => {
+      element.classList.remove('cross-cell');
+      element.classList.remove('game-cell');
+      element.classList.add('game-cell-inactive');
+      element.innerText = '';
+    });
+    setTimeout(() => {
+      alert('You win!');
+    }, 500);
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // const cells = 5;
 // const panelCells = 3; // fr1 = 3, fr2 = 5, fr3 = 8
