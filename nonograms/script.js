@@ -9,9 +9,8 @@ window.addEventListener('load', () => {
 
 // Variables
 
-
-
-let template = templates[randomInt(0, 4)].map((arr) => arr.slice());
+let randomNumber = randomInt(0, 4);
+let template = templates[randomNumber].map((arr) => arr.slice());
 let tempSize, tempName, arrForLeftPanel, arrForTopPanel, gamePanelArr;
 
 createMatrix(template);
@@ -65,13 +64,7 @@ menuTitle.className = 'menu-title';
 menuPanel.append(menuTitle);
 menuTitle.innerText = `Guess: ${tempName}`;
 menuTitle.addEventListener('click', (btn) => {
-  topPanel.innerHTML = '';
-  leftPanel.innerHTML = '';
-  gamePanel.innerHTML = '';
-  template = templates[randomInt(0, 4)].map((arr) => arr.slice());
-  createMatrix(template);
-  createMainElements();
-  menuTitle.innerText = `Guess: ${tempName}`;
+  nextRandomGame();
 });
 
 const gameTimer = document.createElement('div');
@@ -100,16 +93,44 @@ resetBtn.className = 'reset-btn';
 menuPanel.append(resetBtn);
 resetBtn.innerText = 'Reset';
 resetBtn.addEventListener('click', (btn) => {
-  gamePanelArr = Array.from(Array(template[0].length), () =>
-    new Array(template[0].length).fill(0)
-  );
-  gamePanel.querySelectorAll('.game-cell').forEach((element) => {
-    element.classList.remove('active-cell', 'cross-cell', 'game-cell-inactive');
-    element.innerText = '';
-  });
+  resetGame();
 });
 
 //Functions
+
+function resetGame() {
+  if (resetBtn.textContent === 'Reset') {
+    gamePanelArr = Array.from(Array(template[0].length), () =>
+      new Array(template[0].length).fill(0)
+    );
+    gamePanel.querySelectorAll('.game-cell').forEach((element) => {
+      element.classList.remove(
+        'active-cell',
+        'cross-cell',
+        'game-cell-inactive'
+      );
+      element.innerText = '';
+    });
+  } else {
+    nextRandomGame();
+  }
+}
+
+function nextRandomGame() {
+  topPanel.innerHTML = '';
+  leftPanel.innerHTML = '';
+  gamePanel.innerHTML = '';
+  let newRandomNumber = randomInt(0, 4);
+  while (newRandomNumber === randomNumber) {
+    newRandomNumber = randomInt(0, 4);
+  }
+  randomNumber = newRandomNumber;
+  template = templates[randomNumber].map((arr) => arr.slice());
+  createMatrix(template);
+  createMainElements();
+  menuTitle.innerText = `Guess: ${tempName}`;
+  resetBtn.innerText = 'Reset';
+}
 
 function fillPanels(arrForPanel, panel) {
   const newArr = arrForPanel.flat();
