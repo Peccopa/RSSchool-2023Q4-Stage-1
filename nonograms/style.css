@@ -117,6 +117,10 @@
   transition: all .3s ease-in-out;
 }
 
+.next-btn {
+  background-color: var(--text-color-2);
+}
+
 .menu-title:hover,
 .menu-btn:hover,
 .reset-btn:hover {

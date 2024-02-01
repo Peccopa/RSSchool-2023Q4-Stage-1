@@ -167,6 +167,8 @@ function leftClickOnCell(cell) {
     cell.classList.add('active-cell');
     gamePanelArr[row][col] = 1;
   }
+  const audio = new Audio('./click.mp3');
+  audio.play();
   winGame();
 }
 
@@ -183,6 +185,8 @@ function rightClickOnCell(cell) {
     gamePanelArr[row][col] = '0';
     cell.innerText = 'X';
   }
+  const audio = new Audio('./cross.mp3');
+  audio.play();
   winGame();
 }
 
@@ -201,9 +205,12 @@ function winGame() {
       element.classList.add('game-cell-inactive');
       element.innerText = '';
     });
+    resetBtn.classList.add('next-btn');
     setTimeout(() => {
+      const audio = new Audio('./bell.mp3');
+      audio.play();
       console.log('Win!');
-    }, 500);
+    }, 300);
   }
 }
 
