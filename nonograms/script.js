@@ -9,7 +9,7 @@ window.addEventListener('load', () => {
 
 // Variables
 
-const template = templates.temp3_2;
+const template = templates.temp5_2;
 const tempSize = template.shift(); // 3, 5, 8
 const tempName = template.shift();
 
@@ -19,9 +19,6 @@ const arrForTopPanel = templateToTopArr(template, tempSize);
 const gamePanelArr = Array.from(Array(template[0].length), () =>
   new Array(template[0].length).fill(0)
 );
-
-console.log(template);
-console.log(gamePanelArr);
 
 //Create main elements
 
@@ -70,6 +67,10 @@ function fillPanels(arrForPanel, panel) {
       cell.addEventListener('click', (cell) => {
         leftClickOnCell(cell.target);
       });
+      cell.addEventListener('contextmenu', (cell) => {
+        cell.preventDefault();
+        rightClickOnCell(cell.target);
+      });
     } else {
       cell.innerText = newArr[i] ? newArr[i] : '';
     }
@@ -83,6 +84,8 @@ function leftClickOnCell(cell) {
     cell.classList.remove('active-cell');
     gamePanelArr[row][col] = 0;
   } else {
+    cell.classList.remove('cross-cell');
+    cell.innerText = '';
     cell.classList.add('active-cell');
     gamePanelArr[row][col] = 1;
   }
@@ -90,6 +93,22 @@ function leftClickOnCell(cell) {
     winGame();
   }
 }
+
+function rightClickOnCell(cell) {
+  const row = Math.floor(cell.id / template[0].length);
+  const col = cell.id - row * template[0].length;
+  if (cell.classList.contains('cross-cell')) {
+    cell.classList.remove('cross-cell');
+    gamePanelArr[row][col] = 0;
+    cell.innerText = '';
+  } else {
+    cell.classList.remove('active-cell');
+    cell.classList.add('cross-cell');
+    gamePanelArr[row][col] = 2;
+    cell.innerText = 'X';
+  }
+}
+
 
 function winGame() {
   alert('You win!');
