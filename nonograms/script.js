@@ -7,55 +7,15 @@ window.addEventListener('load', () => {
   }, 300);
 });
 
-// Create main menu
-
-const container = document.createElement('div');
-const mainMenuBlock = document.createElement('div');
-const startNewGame = document.createElement('div');
-const resumeGame = document.createElement('div');
-const gameMap = document.createElement('div');
-const gameLevel = document.createElement('div');
-const gameOptions = document.createElement('div');
-const gameResults = document.createElement('div');
-
-function createMainMenu() {
-  mainMenuBlock.className = 'main-menu-block';
-  container.append(mainMenuBlock);
-
-  startNewGame.className = 'menu-point start-new-game';
-  mainMenuBlock.append(startNewGame);
-  startNewGame.innerText = 'NEW GAME';
-  
-
-  resumeGame.className = 'menu-point-inactive resume-game';
-  mainMenuBlock.append(resumeGame);
-  resumeGame.innerText = 'RESUME';
-
-  gameMap.className = 'menu-point game-map';
-  mainMenuBlock.append(gameMap);
-  gameMap.innerText = 'MAP: Square';
-
-  gameLevel.className = 'menu-point game-level';
-  mainMenuBlock.append(gameLevel);
-  gameLevel.innerText = 'LEVEL: 1';
-
-  gameOptions.className = 'menu-point game-options';
-  mainMenuBlock.append(gameOptions);
-  gameOptions.innerText = 'OPTIONS';
-
-  gameResults.className = 'menu-point-inactive game-results';
-  mainMenuBlock.append(gameResults);
-  gameResults.innerText = 'RESULTS';
-}
-
-createMainMenu();
-
 // Ingame elements
 
 let randomNumber = randomInt(0, 4);
+let level = 0;
 let template = templates[randomNumber].map((arr) => arr.slice());
 let tempSize, tempName, arrForLeftPanel, arrForTopPanel, gamePanelArr;
-let ingame = false;
+let status = 'menu';
+let gameMin = 0;
+let gameSec = 1;
 
 createMatrix(template);
 
@@ -69,9 +29,59 @@ function createMatrix(template) {
   );
 }
 
+// Create main menu
+
+const container = document.createElement('div');
+const mainMenuBlock = document.createElement('div');
+const gameStart = document.createElement('div');
+const resumeGame = document.createElement('div');
+const gameMap = document.createElement('div');
+const gameLevel = document.createElement('div');
+const gameOptions = document.createElement('div');
+const gameResults = document.createElement('div');
+
+function createMainMenu() {
+  mainMenuBlock.className = 'main-menu-block';
+  container.append(mainMenuBlock);
+
+  gameStart.className = 'menu-point game-start';
+  mainMenuBlock.append(gameStart);
+  gameStart.innerText = 'NEW GAME';
+  gameStart.addEventListener('click', () => startNewGame(randomNumber));
+
+  resumeGame.className = 'menu-point mp-inactive resume-game';
+  mainMenuBlock.append(resumeGame);
+  resumeGame.innerText = 'RESUME';
+  resumeGame.addEventListener('click', () => returnToGame());
+
+  gameMap.className = 'menu-point game-map';
+  mainMenuBlock.append(gameMap);
+  gameMap.innerText = `MAP: ${templates[randomNumber][1]}`;
+  gameMap.addEventListener('click', () => {
+    randomNumber < 4 ? (randomNumber += 1) : (randomNumber = 0);
+    gameMap.innerText = `MAP: ${templates[randomNumber][1]}`;
+    nextMap();
+  });
+
+  gameLevel.className = 'menu-point game-level';
+  mainMenuBlock.append(gameLevel);
+  gameLevel.innerText = 'LEVEL: 1';
+
+  gameOptions.className = 'menu-point game-options';
+  mainMenuBlock.append(gameOptions);
+  gameOptions.innerText = 'OPTIONS';
+
+  gameResults.className = 'menu-point mp-inactive game-results';
+  mainMenuBlock.append(gameResults);
+  gameResults.innerText = 'RESULTS';
+}
+
+createMainMenu();
+
 //Create game elements
 
 const gameBox = document.createElement('div');
+gameBox.className = 'game-box display-none opacity-0';
 const menuPanel = document.createElement('div');
 const topPanel = document.createElement('div');
 const leftPanel = document.createElement('div');
@@ -87,7 +97,6 @@ const resetBtn = document.createElement('div');
 function createMainElements() {
   container.className = 'container';
   document.body.append(container);
-  gameBox.className = 'game-box';
   container.append(gameBox);
   gameBox.style.gridTemplateColumns = `${arrForLeftPanel[0].length}fr ${template[0].length}fr`;
   menuPanel.className = 'menu-panel';
@@ -126,6 +135,7 @@ function createIngameMenu() {
   gameTimer.append(timerSec);
   menuBtn.className = 'menu-btn';
   menuPanel.append(menuBtn);
+  menuBtn.addEventListener('click', () => openMainMenu());
   menuBtn.innerText = 'Menu';
   resetBtn.className = 'reset-btn';
   menuPanel.append(resetBtn);
@@ -137,37 +147,77 @@ createIngameMenu();
 
 //Functions
 
+function startNewGame() {
+  mainMenuBlock.classList.add('opacity-0');
+  setTimeout(() => {
+    mainMenuBlock.classList.add('display-none');
+    gameBox.classList.remove('display-none');
+    setTimeout(() => {
+      gameBox.classList.remove('opacity-0');
+    }, 100);
+  }, 300);
+  status = 'game';
+  resetGame();
+}
+
+function openMainMenu() {
+  status = 'menu';
+  if (gameSec > 1) resumeGame.classList.remove('mp-inactive');
+  if (gameSec === 1) resumeGame.classList.add('mp-inactive');
+  gameMap.innerText = `MAP: ${templates[randomNumber][1]}`;
+  gameBox.classList.add('opacity-0');
+  setTimeout(() => {
+    gameBox.classList.add('display-none');
+    mainMenuBlock.classList.remove('display-none');
+    setTimeout(() => {
+      mainMenuBlock.classList.remove('opacity-0');
+    }, 100);
+  }, 300);
+}
+
+function returnToGame() {
+  mainMenuBlock.classList.add('opacity-0');
+  setTimeout(() => {
+    mainMenuBlock.classList.add('display-none');
+    gameBox.classList.remove('display-none');
+    setTimeout(() => {
+      gameBox.classList.remove('opacity-0');
+    }, 100);
+  }, 300);
+  status = 'play';
+}
+
 function startTimer() {
   gameTimer.classList.add('next-btn');
-  let sec = 1;
-  let min = 0;
   const intervalTimer = setInterval(() => {
-    if (sec.toString().length < 2 && ingame === true) {
-      timerSec.innerText = `0${sec}`;
-    } else if (ingame === true) {
-      timerSec.innerText = sec;
-    }
-    sec += 1;
-    if (sec === 60 && ingame === true) {
-      min += 1;
-      sec = 0;
-      if (min.toString().length < 2 && ingame === true) {
-        timerMin.innerText = `0${min}`;
-      } else if (ingame === true) {
-        timerMin.innerText = min;
+    if (status !== 'menu') {
+      if (gameSec.toString().length < 2 && status === 'play') {
+        timerSec.innerText = `0${gameSec}`;
+      } else if (status === 'play') {
+        timerSec.innerText = gameSec;
       }
-    }
-    if (ingame === false) {
-      clearInterval(intervalTimer);
-      min = 0;
-      sec = 0;
+      gameSec += 1;
+      if (gameSec === 60 && status === 'play') {
+        gameMin += 1;
+        gameSec = 0;
+        if (gameMin.toString().length < 2 && status === 'play') {
+          timerMin.innerText = `0${gameMin}`;
+        } else if (status === 'play') {
+          timerMin.innerText = gameMin;
+        }
+      }
+      if (status === 'game') {
+        clearInterval(intervalTimer);
+        gameMin = 0;
+        gameSec = 1;
+      }
     }
   }, 1000);
 }
 
 function resetGame() {
   if (resetBtn.textContent === 'Reset') {
-    ingame = false;
+    status = 'game';
     timerSec.innerText = '00';
     timerMin.innerText = '00';
     resetBtn.classList.remove('next-btn');
@@ -189,7 +239,7 @@ function resetGame() {
 }
 
 function nextRandomGame() {
-  ingame = false;
+  status = 'game';
   timerSec.innerText = '00';
   timerMin.innerText = '00';
   resetBtn.classList.remove('next-btn');
@@ -202,6 +252,22 @@ function nextRandomGame() {
     newRandomNumber = randomInt(0, 4);
   }
   randomNumber = newRandomNumber;
+  template = templates[randomNumber].map((arr) => arr.slice());
+  createMatrix(template);
+  createMainElements();
+  menuTitle.innerText = `Guess: ${tempName}`;
+  resetBtn.innerText = 'Reset';
+}
+
+function nextMap() {
+  timerSec.innerText = '00';
+  timerMin.innerText = '00';
+  resetBtn.classList.remove('next-btn');
+  gameTimer.classList.remove('next-btn');
+  resumeGame.classList.add('mp-inactive');
+  topPanel.innerHTML = '';
+  leftPanel.innerHTML = '';
+  gamePanel.innerHTML = '';
   template = templates[randomNumber].map((arr) => arr.slice());
   createMatrix(template);
   createMainElements();
@@ -233,9 +299,9 @@ function fillPanels(arrForPanel, panel) {
 }
 
 function leftClickOnCell(cell) {
-  if (ingame === false) {
+  if (status === 'game') {
     startTimer();
-    ingame = true;
+    status = 'play';
   }
   const row = Math.floor(cell.id / template[0].length);
   const col = cell.id - row * template[0].length;
@@ -257,9 +323,9 @@ function leftClickOnCell(cell) {
 }
 
 function rightClickOnCell(cell) {
-  if (ingame === false) {
+  if (status === 'game') {
     startTimer();
-    ingame = true;
+    status = 'play';
   }
   const row = Math.floor(cell.id / template[0].length);
   const col = cell.id - row * template[0].length;
@@ -285,7 +351,7 @@ function winGame() {
   const tempArr = template.map((e) => e.join('')).join('');
   const gameArr = gamePanelArr.map((e) => e.join('')).join('');
   if (tempArr === gameArr) {
-    ingame = false;
+    status = 'game';
     gameTimer.classList.remove('next-btn');
     resetBtn.innerText = 'Next';
     const cellArr = gamePanel.querySelectorAll('.game-cell');
