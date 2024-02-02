@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
 
 let randomNumber = randomInt(0, 4);
 let level = 0;
-let template = templates[randomNumber].map((arr) => arr.slice());
+let template = templates[randomNumber + level].map((arr) => arr.slice());
 let tempSize, tempName, arrForLeftPanel, arrForTopPanel, gamePanelArr;
 let status = 'menu';
 let gameMin = 0;
@@ -56,16 +56,21 @@ function createMainMenu() {
 
   gameMap.className = 'menu-point game-map';
   mainMenuBlock.append(gameMap);
-  gameMap.innerText = `MAP: ${templates[randomNumber][1]}`;
+  gameMap.innerText = `MAP: ${templates[randomNumber + level][1]}`;
   gameMap.addEventListener('click', () => {
     randomNumber < 4 ? (randomNumber += 1) : (randomNumber = 0);
-    gameMap.innerText = `MAP: ${templates[randomNumber][1]}`;
+    gameMap.innerText = `MAP: ${templates[randomNumber + level][1]}`;
     nextMap();
   });
 
   gameLevel.className = 'menu-point game-level';
   mainMenuBlock.append(gameLevel);
   gameLevel.innerText = 'LEVEL: 1';
+  gameLevel.addEventListener('click', () => {
+    level < 10 ? (level += 5) : (level = 0);
+    gameLevel.innerText = `LEVEL: ${level / 5 + 1}`;
+    nextMap();
+  });
 
   gameOptions.className = 'menu-point game-options';
   mainMenuBlock.append(gameOptions);
@@ -164,7 +169,7 @@ function openMainMenu() {
   status = 'menu';
   if (gameSec > 1) resumeGame.classList.remove('mp-inactive');
   if (gameSec === 1) resumeGame.classList.add('mp-inactive');
-  gameMap.innerText = `MAP: ${templates[randomNumber][1]}`;
+  gameMap.innerText = `MAP: ${templates[randomNumber + level][1]}`;
   gameBox.classList.add('opacity-0');
   setTimeout(() => {
     gameBox.classList.add('display-none');
@@ -252,7 +257,7 @@ function nextRandomGame() {
     newRandomNumber = randomInt(0, 4);
   }
   randomNumber = newRandomNumber;
-  template = templates[randomNumber].map((arr) => arr.slice());
+  template = templates[randomNumber + level].map((arr) => arr.slice());
   createMatrix(template);
   createMainElements();
   menuTitle.innerText = `Guess: ${tempName}`;
@@ -268,7 +273,7 @@ function nextMap() {
   topPanel.innerHTML = '';
   leftPanel.innerHTML = '';
   gamePanel.innerHTML = '';
-  template = templates[randomNumber].map((arr) => arr.slice());
+  template = templates[randomNumber + level].map((arr) => arr.slice());
   createMatrix(template);
   createMainElements();
   menuTitle.innerText = `Guess: ${tempName}`;
