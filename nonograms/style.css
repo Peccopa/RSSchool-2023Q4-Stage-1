@@ -62,22 +62,24 @@
 .game-timer {
   width: 10rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   padding: 1rem;
   border: .2rem solid var(--main-color-0);
   border-radius: .5rem;
-  /* background-color: var(--text-color-2); */
+  transition: all .3s ease-in-out;
 }
 
 .timer-min {
+  width: 2.8rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: 2rem;
 }
 
 .timer-colon {
+  width: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,8 +87,9 @@
 }
 
 .timer-sec {
+  width: 2.8rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: 2rem;
 }

@@ -12,6 +12,7 @@ window.addEventListener('load', () => {
 let randomNumber = randomInt(0, 4);
 let template = templates[randomNumber].map((arr) => arr.slice());
 let tempSize, tempName, arrForLeftPanel, arrForTopPanel, gamePanelArr;
+let ingame = false;
 
 createMatrix(template);
 
@@ -73,14 +74,14 @@ menuPanel.append(gameTimer);
 const timerMin = document.createElement('div');
 timerMin.className = 'timer-min';
 gameTimer.append(timerMin);
-timerMin.innerText = '07';
+timerMin.innerText = '00';
 const timerColon = document.createElement('div');
 timerColon.className = 'timer-colon';
 gameTimer.append(timerColon);
 timerColon.innerText = ':';
 const timerSec = document.createElement('div');
 timerSec.className = 'timer-sec';
-timerSec.innerText = '15';
+timerSec.innerText = '00';
 gameTimer.append(timerSec);
 
 const menuBtn = document.createElement('div');
@@ -98,8 +99,41 @@ resetBtn.addEventListener('click', (btn) => {
 
 //Functions
 
+function startTimer() {
+  gameTimer.classList.add('next-btn');
+  let sec = 1;
+  let min = 0;
+  const intervalTimer = setInterval(() => {
+    if (sec.toString().length < 2 && ingame === true) {
+      timerSec.innerText = `0${sec}`;
+    } else if (ingame === true) {
+      timerSec.innerText = sec;
+    }
+    sec += 1;
+    if (sec === 60 && ingame === true) {
+      min += 1;
+      sec = 0;
+      if (min.toString().length < 2 && ingame === true) {
+        timerMin.innerText = `0${min}`;
+      } else if (ingame === true) {
+        timerMin.innerText = min;
+      }
+    }
+    if (ingame === false) {
+      clearInterval(intervalTimer);
+      min = 0;
+      sec = 0;
+    }
+  }, 1000);
+}
+
 function resetGame() {
   if (resetBtn.textContent === 'Reset') {
+    ingame = false;
+    timerSec.innerText = '00';
+    timerMin.innerText = '00';
+    resetBtn.classList.remove('next-btn');
+    gameTimer.classList.remove('next-btn');
     gamePanelArr = Array.from(Array(template[0].length), () =>
       new Array(template[0].length).fill(0)
     );
@@ -117,6 +151,11 @@ function resetGame() {
 }
 
 function nextRandomGame() {
+  ingame = false;
+  timerSec.innerText = '00';
+  timerMin.innerText = '00';
+  resetBtn.classList.remove('next-btn');
+  gameTimer.classList.remove('next-btn');
   topPanel.innerHTML = '';
   leftPanel.innerHTML = '';
   gamePanel.innerHTML = '';
@@ -156,37 +195,51 @@ function fillPanels(arrForPanel, panel) {
 }
 
 function leftClickOnCell(cell) {
+  if (ingame === false) {
+    startTimer();
+    ingame = true;
+  }
   const row = Math.floor(cell.id / template[0].length);
   const col = cell.id - row * template[0].length;
   if (cell.classList.contains('active-cell')) {
     cell.classList.remove('active-cell');
     gamePanelArr[row][col] = 0;
+    const audio = new Audio('./erase.mp3');
+    audio.play();
   } else {
     cell.classList.remove('cross-cell');
     cell.innerText = '';
     cell.classList.add('active-cell');
     gamePanelArr[row][col] = 1;
+    const audio = new Audio('./click.mp3');
+    audio.play();
   }
-  const audio = new Audio('./click.mp3');
-  audio.play();
+
   winGame();
 }
 
 function rightClickOnCell(cell) {
+  if (ingame === false) {
+    startTimer();
+    ingame = true;
+  }
   const row = Math.floor(cell.id / template[0].length);
   const col = cell.id - row * template[0].length;
   if (cell.classList.contains('cross-cell')) {
     cell.classList.remove('cross-cell');
     gamePanelArr[row][col] = 0;
     cell.innerText = '';
+    const audio = new Audio('./erase.mp3');
+    audio.play();
   } else {
     cell.classList.remove('active-cell');
     cell.classList.add('cross-cell');
     gamePanelArr[row][col] = '0';
     cell.innerText = 'X';
+    const audio = new Audio('./cross.mp3');
+    audio.play();
   }
-  const audio = new Audio('./cross.mp3');
-  audio.play();
+
   winGame();
 }
 
@@ -194,6 +247,8 @@ function winGame() {
   const tempArr = template.map((e) => e.join('')).join('');
   const gameArr = gamePanelArr.map((e) => e.join('')).join('');
   if (tempArr === gameArr) {
+    ingame = false;
+    gameTimer.classList.remove('next-btn');
     resetBtn.innerText = 'Next';
     const cellArr = gamePanel.querySelectorAll('.game-cell');
     cellArr.forEach((element) => {
@@ -210,7 +265,7 @@ function winGame() {
       const audio = new Audio('./bell.mp3');
       audio.play();
       console.log('Win!');
-    }, 300);
+    }, 100);
   }
 }
 
