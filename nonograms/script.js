@@ -7,7 +7,50 @@ window.addEventListener('load', () => {
   }, 300);
 });
 
-// Variables
+// Create main menu
+
+const container = document.createElement('div');
+const mainMenuBlock = document.createElement('div');
+const startNewGame = document.createElement('div');
+const resumeGame = document.createElement('div');
+const gameMap = document.createElement('div');
+const gameLevel = document.createElement('div');
+const gameOptions = document.createElement('div');
+const gameResults = document.createElement('div');
+
+function createMainMenu() {
+  mainMenuBlock.className = 'main-menu-block';
+  container.append(mainMenuBlock);
+
+  startNewGame.className = 'menu-point start-new-game';
+  mainMenuBlock.append(startNewGame);
+  startNewGame.innerText = 'NEW GAME';
+  
+
+  resumeGame.className = 'menu-point-inactive resume-game';
+  mainMenuBlock.append(resumeGame);
+  resumeGame.innerText = 'RESUME';
+
+  gameMap.className = 'menu-point game-map';
+  mainMenuBlock.append(gameMap);
+  gameMap.innerText = 'MAP: Square';
+
+  gameLevel.className = 'menu-point game-level';
+  mainMenuBlock.append(gameLevel);
+  gameLevel.innerText = 'LEVEL: 1';
+
+  gameOptions.className = 'menu-point game-options';
+  mainMenuBlock.append(gameOptions);
+  gameOptions.innerText = 'OPTIONS';
+
+  gameResults.className = 'menu-point-inactive game-results';
+  mainMenuBlock.append(gameResults);
+  gameResults.innerText = 'RESULTS';
+}
+
+createMainMenu();
+
+// Ingame elements
 
 let randomNumber = randomInt(0, 4);
 let template = templates[randomNumber].map((arr) => arr.slice());
@@ -26,15 +69,20 @@ function createMatrix(template) {
   );
 }
 
-//Create main elements
-const container = document.createElement('div');
+//Create game elements
+
 const gameBox = document.createElement('div');
 const menuPanel = document.createElement('div');
 const topPanel = document.createElement('div');
 const leftPanel = document.createElement('div');
 const gamePanel = document.createElement('div');
-
-createMainElements();
+const menuTitle = document.createElement('div');
+const gameTimer = document.createElement('div');
+const timerMin = document.createElement('div');
+const timerColon = document.createElement('div');
+const timerSec = document.createElement('div');
+const menuBtn = document.createElement('div');
+const resetBtn = document.createElement('div');
 
 function createMainElements() {
   container.className = 'container';
@@ -58,44 +106,34 @@ function createMainElements() {
   gamePanel.style.gridTemplateColumns = `repeat(${template[0].length}, 1fr`;
 }
 
-// Create ingame menu elements
+createMainElements();
 
-const menuTitle = document.createElement('div');
-menuTitle.className = 'menu-title';
-menuPanel.append(menuTitle);
-menuTitle.innerText = `Guess: ${tempName}`;
-menuTitle.addEventListener('click', (btn) => {
-  nextRandomGame();
-});
+function createIngameMenu() {
+  menuTitle.className = 'menu-title';
+  menuPanel.append(menuTitle);
+  menuTitle.innerText = `Guess: ${tempName}`;
+  menuTitle.addEventListener('click', () => nextRandomGame());
+  gameTimer.className = 'game-timer';
+  menuPanel.append(gameTimer);
+  timerMin.className = 'timer-min';
+  gameTimer.append(timerMin);
+  timerMin.innerText = '00';
+  timerColon.className = 'timer-colon';
+  gameTimer.append(timerColon);
+  timerColon.innerText = ':';
+  timerSec.className = 'timer-sec';
+  timerSec.innerText = '00';
+  gameTimer.append(timerSec);
+  menuBtn.className = 'menu-btn';
+  menuPanel.append(menuBtn);
+  menuBtn.innerText = 'Menu';
+  resetBtn.className = 'reset-btn';
+  menuPanel.append(resetBtn);
+  resetBtn.innerText = 'Reset';
+  resetBtn.addEventListener('click', () => resetGame());
+}
 
-const gameTimer = document.createElement('div');
-gameTimer.className = 'game-timer';
-menuPanel.append(gameTimer);
-const timerMin = document.createElement('div');
-timerMin.className = 'timer-min';
-gameTimer.append(timerMin);
-timerMin.innerText = '00';
-const timerColon = document.createElement('div');
-timerColon.className = 'timer-colon';
-gameTimer.append(timerColon);
-timerColon.innerText = ':';
-const timerSec = document.createElement('div');
-timerSec.className = 'timer-sec';
-timerSec.innerText = '00';
-gameTimer.append(timerSec);
-
-const menuBtn = document.createElement('div');
-menuBtn.className = 'menu-btn';
-menuPanel.append(menuBtn);
-menuBtn.innerText = 'Menu';
-
-const resetBtn = document.createElement('div');
-resetBtn.className = 'reset-btn';
-menuPanel.append(resetBtn);
-resetBtn.innerText = 'Reset';
-resetBtn.addEventListener('click', (btn) => {
-  resetGame();
-});
+createIngameMenu();
 
 //Functions
 
