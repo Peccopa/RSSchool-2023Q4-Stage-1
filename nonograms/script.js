@@ -14,6 +14,7 @@ let level = 0;
 let template = templates[randomNumber + level].map((arr) => arr.slice());
 let tempSize, tempName, arrForLeftPanel, arrForTopPanel, gamePanelArr;
 let soundStatus = 'ON';
+let colorStatus = 'Light';
 let status = 'menu';
 let gameMin = 0;
 let gameSec = 1;
@@ -65,8 +66,35 @@ function createOptionsBlock() {
 
   optionsColor.className = 'menu-point options-color';
   optionsBlock.append(optionsColor);
-  optionsColor.innerText = `COLOR: ${'Light'}`;
-  optionsColor.addEventListener('click', () => startNewGame(randomNumber));
+  optionsColor.innerText = `COLOR: ${colorStatus}`;
+  optionsColor.addEventListener('click', () => {
+    let element = document.documentElement.style;
+    if (colorStatus === 'Light') {
+      optionsBlock.classList.add('opacity-0');
+      element.setProperty('--main-color-0', 'orange');
+      element.setProperty('--main-color-2', 'chocolate');
+      element.setProperty('--main-color-3', 'brown');
+      element.setProperty('--text-color-0', 'orange');
+      element.setProperty('--text-color-2', 'chocolate');
+      setTimeout(() => {
+        colorStatus = 'Dark';
+        optionsColor.innerText = `COLOR: ${colorStatus}`;
+        optionsBlock.classList.remove('opacity-0');
+      }, 400);
+    } else {
+      optionsBlock.classList.add('opacity-0');
+      element.setProperty('--main-color-0', 'rgb(0, 0, 0)');
+      element.setProperty('--main-color-2', 'rgb(125, 125, 125)');
+      element.setProperty('--main-color-3', 'rgb(255, 255, 255)');
+      element.setProperty('--text-color-0', 'rgb(0, 0, 0)');
+      element.setProperty('--text-color-2', 'rgb(125, 125, 125)');
+      setTimeout(() => {
+        colorStatus = 'Light';
+        optionsColor.innerText = `COLOR: ${colorStatus}`;
+        optionsBlock.classList.remove('opacity-0');
+      }, 400);
+    }
+  });
 
   optionsBack.className = 'menu-point options-back';
   optionsBlock.append(optionsBack);
