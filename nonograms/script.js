@@ -13,6 +13,7 @@ let randomNumber = randomInt(0, 4);
 let level = 0;
 let template = templates[randomNumber + level].map((arr) => arr.slice());
 let tempSize, tempName, arrForLeftPanel, arrForTopPanel, gamePanelArr;
+let soundStatus = 'ON';
 let status = 'menu';
 let gameMin = 0;
 let gameSec = 1;
@@ -39,6 +40,41 @@ const gameMap = document.createElement('div');
 const gameLevel = document.createElement('div');
 const gameOptions = document.createElement('div');
 const gameResults = document.createElement('div');
+
+const optionsBlock = document.createElement('div');
+const optionsColor = document.createElement('div');
+const optionsSound = document.createElement('div');
+const optionsBack = document.createElement('div');
+
+function createOptionsBlock() {
+  optionsBlock.className = 'options-block display-none opacity-0';
+  container.append(optionsBlock);
+
+  optionsSound.className = 'menu-point options-sound';
+  optionsBlock.append(optionsSound);
+  optionsSound.innerText = `SOUND: ${soundStatus}`;
+  optionsSound.addEventListener('click', () => {
+    if (soundStatus === 'ON') {
+      soundStatus = 'OFF';
+      optionsSound.innerText = `SOUND: ${soundStatus}`;
+    } else {
+      soundStatus = 'ON';
+      optionsSound.innerText = `SOUND: ${soundStatus}`;
+    }
+  });
+
+  optionsColor.className = 'menu-point options-color';
+  optionsBlock.append(optionsColor);
+  optionsColor.innerText = `COLOR: ${'Light'}`;
+  optionsColor.addEventListener('click', () => startNewGame(randomNumber));
+
+  optionsBack.className = 'menu-point options-back';
+  optionsBlock.append(optionsBack);
+  optionsBack.innerText = 'BACK';
+  optionsBack.addEventListener('click', () => closeOptions());
+}
+
+createOptionsBlock();
 
 function createMainMenu() {
   mainMenuBlock.className = 'main-menu-block';
@@ -75,6 +111,7 @@ function createMainMenu() {
   gameOptions.className = 'menu-point game-options';
   mainMenuBlock.append(gameOptions);
   gameOptions.innerText = 'OPTIONS';
+  gameOptions.addEventListener('click', () => openOptions());
 
   gameResults.className = 'menu-point mp-inactive game-results';
   mainMenuBlock.append(gameResults);
@@ -163,6 +200,28 @@ function startNewGame() {
   }, 300);
   status = 'game';
   resetGame();
+}
+
+function openOptions() {
+  mainMenuBlock.classList.add('opacity-0');
+  setTimeout(() => {
+    mainMenuBlock.classList.add('display-none');
+    optionsBlock.classList.remove('display-none');
+    setTimeout(() => {
+      optionsBlock.classList.remove('opacity-0');
+    }, 100);
+  }, 300);
+}
+
+function closeOptions() {
+  optionsBlock.classList.add('opacity-0');
+  setTimeout(() => {
+    optionsBlock.classList.add('display-none');
+    mainMenuBlock.classList.remove('display-none');
+    setTimeout(() => {
+      mainMenuBlock.classList.remove('opacity-0');
+    }, 100);
+  }, 300);
 }
 
 function openMainMenu() {
@@ -287,9 +346,18 @@ function fillPanels(arrForPanel, panel) {
     cell.className = `cell`;
     cell.classList.add(`size-${tempSize}`);
     panel.append(cell);
-    if (arrForPanel === template) {
+    if (panel.classList.contains('game-panel')) {
       cell.id = i;
       cell.classList.add(`game-cell`);
+      if (newArr.length === 100 && i > 39 && i < 50) {
+        cell.classList.add(`border-bottom`);
+      }
+      if (newArr.length === 225 && i > 59 && i < 75) {
+        cell.classList.add(`border-bottom`);
+      }
+      if (newArr.length === 225 && i > 134 && i < 150) {
+        cell.classList.add(`border-bottom`);
+      }
       cell.addEventListener('click', (cell) => {
         leftClickOnCell(cell.target);
       });
@@ -297,8 +365,21 @@ function fillPanels(arrForPanel, panel) {
         cell.preventDefault();
         rightClickOnCell(cell.target);
       });
-    } else {
+    } else if (panel.classList.contains('top-panel')) {
       cell.innerText = newArr[i] ? newArr[i] : '';
+      cell.classList.add(`top-cell`);
+    } else if (panel.classList.contains('left-panel')) {
+      cell.innerText = newArr[i] ? newArr[i] : '';
+      cell.classList.add(`left-cell`);
+      if (newArr.length === 50 && i > 19 && i < 25) {
+        cell.classList.add(`border-bottom`);
+      }
+      if (newArr.length === 120 && i > 31 && i < 40) {
+        cell.classList.add(`border-bottom`);
+      }
+      if (newArr.length === 120 && i > 71 && i < 80) {
+        cell.classList.add(`border-bottom`);
+      }
     }
   }
 }
@@ -314,14 +395,14 @@ function leftClickOnCell(cell) {
     cell.classList.remove('active-cell');
     gamePanelArr[row][col] = 0;
     const audio = new Audio('./erase.mp3');
-    audio.play();
+    if (soundStatus === 'ON') audio.play();
   } else {
     cell.classList.remove('cross-cell');
     cell.innerText = '';
     cell.classList.add('active-cell');
     gamePanelArr[row][col] = 1;
     const audio = new Audio('./click.mp3');
-    audio.play();
+    if (soundStatus === 'ON') audio.play();
   }
 
   winGame();
@@ -339,14 +420,14 @@ function rightClickOnCell(cell) {
     gamePanelArr[row][col] = 0;
     cell.innerText = '';
     const audio = new Audio('./erase.mp3');
-    audio.play();
+    if (soundStatus === 'ON') audio.play();
   } else {
     cell.classList.remove('active-cell');
     cell.classList.add('cross-cell');
     gamePanelArr[row][col] = '0';
     cell.innerText = 'X';
     const audio = new Audio('./cross.mp3');
-    audio.play();
+    if (soundStatus === 'ON') audio.play();
   }
 
   winGame();
@@ -372,7 +453,7 @@ function winGame() {
     resetBtn.classList.add('next-btn');
     setTimeout(() => {
       const audio = new Audio('./bell.mp3');
-      audio.play();
+      if (soundStatus === 'ON') audio.play();
       console.log('Win!');
     }, 100);
   }
