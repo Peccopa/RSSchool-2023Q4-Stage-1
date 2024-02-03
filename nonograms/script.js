@@ -9,17 +9,28 @@ window.addEventListener('load', () => {
 
 // Ingame elements
 
-let randomNumber = randomInt(0, 4);
-let level = 0;
-let template = templates[randomNumber + level].map((arr) => arr.slice());
-let tempSize, tempName, arrForLeftPanel, arrForTopPanel, gamePanelArr;
-let soundStatus = 'ON';
-let colorStatus = 'Light';
-let status = 'menu';
-let gameMin = 0;
-let gameSec = 1;
+const localData = JSON.parse(localStorage.getItem('gameData')) || false;
 
-createMatrix(template);
+let randomNumber = localData.randomNumber || randomInt(0, 4);
+let level = localData.level || 0;
+let template = templates[randomNumber + level].map((arr) => arr.slice());
+let tempSize = template.shift();
+let tempName = template.shift();
+let arrForLeftPanel = templateToLeftArr(template, tempSize);
+let arrForTopPanel = templateToTopArr(template, tempSize);
+let gamePanelArr =
+  localData.gamePanelArr ||
+  Array.from(Array(template[0].length), () =>
+    new Array(template[0].length).fill(0)
+  );
+let soundStatus = localData.soundStatus || 'ON';
+let colorStatus = localData.colorStatus || 'Light';
+let timerStatus = false;
+let status = 'menu';
+let gameMin = localData.gameMin || 0;
+let gameSec = localData.gameSec || 1;
+
+// createMatrix(template);
 
 function createMatrix(template) {
   tempSize = template.shift();
@@ -41,7 +52,6 @@ const gameMap = document.createElement('div');
 const gameLevel = document.createElement('div');
 const gameOptions = document.createElement('div');
 const gameResults = document.createElement('div');
-
 const optionsBlock = document.createElement('div');
 const optionsColor = document.createElement('div');
 const optionsSound = document.createElement('div');
@@ -50,7 +60,6 @@ const optionsBack = document.createElement('div');
 function createOptionsBlock() {
   optionsBlock.className = 'options-block display-none opacity-0';
   container.append(optionsBlock);
-
   optionsSound.className = 'menu-point options-sound';
   optionsBlock.append(optionsSound);
   optionsSound.innerText = `SOUND: ${soundStatus}`;
@@ -63,39 +72,18 @@ function createOptionsBlock() {
       optionsSound.innerText = `SOUND: ${soundStatus}`;
     }
   });
-
   optionsColor.className = 'menu-point options-color';
   optionsBlock.append(optionsColor);
   optionsColor.innerText = `COLOR: ${colorStatus}`;
-  optionsColor.addEventListener('click', () => {
+  if (colorStatus === 'Dark') {
     let element = document.documentElement.style;
-    if (colorStatus === 'Light') {
-      optionsBlock.classList.add('opacity-0');
-      element.setProperty('--main-color-0', 'orange');
-      element.setProperty('--main-color-2', 'chocolate');
-      element.setProperty('--main-color-3', 'brown');
-      element.setProperty('--text-color-0', 'orange');
-      element.setProperty('--text-color-2', 'chocolate');
-      setTimeout(() => {
-        colorStatus = 'Dark';
-        optionsColor.innerText = `COLOR: ${colorStatus}`;
-        optionsBlock.classList.remove('opacity-0');
-      }, 400);
-    } else {
-      optionsBlock.classList.add('opacity-0');
-      element.setProperty('--main-color-0', 'rgb(0, 0, 0)');
-      element.setProperty('--main-color-2', 'rgb(125, 125, 125)');
-      element.setProperty('--main-color-3', 'rgb(255, 255, 255)');
-      element.setProperty('--text-color-0', 'rgb(0, 0, 0)');
-      element.setProperty('--text-color-2', 'rgb(125, 125, 125)');
-      setTimeout(() => {
-        colorStatus = 'Light';
-        optionsColor.innerText = `COLOR: ${colorStatus}`;
-        optionsBlock.classList.remove('opacity-0');
-      }, 400);
-    }
-  });
-
+    element.setProperty('--main-color-0', 'orange');
+    element.setProperty('--main-color-2', 'chocolate');
+    element.setProperty('--main-color-3', 'brown');
+    element.setProperty('--text-color-0', 'orange');
+    element.setProperty('--text-color-2', 'chocolate');
+  }
+  optionsColor.addEventListener('click', () => changeColors());
   optionsBack.className = 'menu-point options-back';
   optionsBlock.append(optionsBack);
   optionsBack.innerText = 'BACK';
@@ -103,6 +91,35 @@ function createOptionsBlock() {
 }
 
 createOptionsBlock();
+
+function changeColors() {
+  let element = document.documentElement.style;
+  if (colorStatus === 'Light') {
+    optionsBlock.classList.add('opacity-0');
+    element.setProperty('--main-color-0', 'orange');
+    element.setProperty('--main-color-2', 'chocolate');
+    element.setProperty('--main-color-3', 'brown');
+    element.setProperty('--text-color-0', 'orange');
+    element.setProperty('--text-color-2', 'chocolate');
+    setTimeout(() => {
+      colorStatus = 'Dark';
+      optionsColor.innerText = `COLOR: ${colorStatus}`;
+      optionsBlock.classList.remove('opacity-0');
+    }, 400);
+  } else {
+    optionsBlock.classList.add('opacity-0');
+    element.setProperty('--main-color-0', 'rgb(0, 0, 0)');
+    element.setProperty('--main-color-2', 'rgb(125, 125, 125)');
+    element.setProperty('--main-color-3', 'rgb(255, 255, 255)');
+    element.setProperty('--text-color-0', 'rgb(0, 0, 0)');
+    element.setProperty('--text-color-2', 'rgb(125, 125, 125)');
+    setTimeout(() => {
+      colorStatus = 'Light';
+      optionsColor.innerText = `COLOR: ${colorStatus}`;
+      optionsBlock.classList.remove('opacity-0');
+    }, 400);
+  }
+}
 
 function createMainMenu() {
   mainMenuBlock.className = 'main-menu-block';
@@ -117,6 +134,7 @@ function createMainMenu() {
   mainMenuBlock.append(resumeGame);
   resumeGame.innerText = 'RESUME';
   resumeGame.addEventListener('click', () => returnToGame());
+  if (gameSec > 1 || gameMin > 0) resumeGame.classList.remove('mp-inactive');
 
   gameMap.className = 'menu-point game-map';
   mainMenuBlock.append(gameMap);
@@ -129,7 +147,7 @@ function createMainMenu() {
 
   gameLevel.className = 'menu-point game-level';
   mainMenuBlock.append(gameLevel);
-  gameLevel.innerText = 'LEVEL: 1';
+  gameLevel.innerText = `LEVEL: ${level / 5 + 1}`;
   gameLevel.addEventListener('click', () => {
     level < 10 ? (level += 5) : (level = 0);
     gameLevel.innerText = `LEVEL: ${level / 5 + 1}`;
@@ -190,18 +208,18 @@ createMainElements();
 function createIngameMenu() {
   menuTitle.className = 'menu-title';
   menuPanel.append(menuTitle);
-  menuTitle.innerText = `Guess: ${tempName}`;
+  menuTitle.innerText = `Guess: ${tempName}-${level / 5 + 1}`;
   menuTitle.addEventListener('click', () => nextRandomGame());
   gameTimer.className = 'game-timer';
   menuPanel.append(gameTimer);
   timerMin.className = 'timer-min';
   gameTimer.append(timerMin);
-  timerMin.innerText = '00';
+  timerMin.innerText = String(gameMin).length < 2 ? `0${gameMin}` : gameMin;
   timerColon.className = 'timer-colon';
   gameTimer.append(timerColon);
   timerColon.innerText = ':';
   timerSec.className = 'timer-sec';
-  timerSec.innerText = '00';
+  timerSec.innerText = String(gameSec).length < 2 ? `0${gameSec}` : gameSec;
   gameTimer.append(timerSec);
   menuBtn.className = 'menu-btn';
   menuPanel.append(menuBtn);
@@ -250,6 +268,7 @@ function closeOptions() {
       mainMenuBlock.classList.remove('opacity-0');
     }, 100);
   }, 300);
+  saveData();
 }
 
 function openMainMenu() {
@@ -277,18 +296,14 @@ function returnToGame() {
     }, 100);
   }, 300);
   status = 'play';
+  if (!timerStatus) startTimer();
 }
 
 function startTimer() {
+  timerStatus = true;
   gameTimer.classList.add('next-btn');
   const intervalTimer = setInterval(() => {
     if (status !== 'menu') {
-      if (gameSec.toString().length < 2 && status === 'play') {
-        timerSec.innerText = `0${gameSec}`;
-      } else if (status === 'play') {
-        timerSec.innerText = gameSec;
-      }
-      gameSec += 1;
       if (gameSec === 60 && status === 'play') {
         gameMin += 1;
         gameSec = 0;
@@ -298,12 +313,19 @@ function startTimer() {
           timerMin.innerText = gameMin;
         }
       }
+      if (gameSec.toString().length < 2 && status === 'play') {
+        timerSec.innerText = `0${gameSec}`;
+      } else if (status === 'play') {
+        timerSec.innerText = gameSec;
+      }
+      gameSec += 1;
       if (status === 'game') {
         clearInterval(intervalTimer);
         gameMin = 0;
         gameSec = 1;
       }
     }
+    saveData();
   }, 1000);
 }
 
@@ -343,11 +365,13 @@ function nextRandomGame() {
   while (newRandomNumber === randomNumber) {
     newRandomNumber = randomInt(0, 4);
   }
+  level = randomInt(0, 2) * 5;
   randomNumber = newRandomNumber;
   template = templates[randomNumber + level].map((arr) => arr.slice());
   createMatrix(template);
   createMainElements();
-  menuTitle.innerText = `Guess: ${tempName}`;
+  menuTitle.innerText = `Guess: ${tempName}-${level / 5 + 1}`;
+  gameLevel.innerText = `LEVEL: ${level / 5 + 1}`;
   resetBtn.innerText = 'Reset';
 }
 
@@ -363,18 +387,26 @@ function nextMap() {
   template = templates[randomNumber + level].map((arr) => arr.slice());
   createMatrix(template);
   createMainElements();
-  menuTitle.innerText = `Guess: ${tempName}`;
+  menuTitle.innerText = `Guess: ${tempName}-${level / 5 + 1}`;
   resetBtn.innerText = 'Reset';
 }
 
 function fillPanels(arrForPanel, panel) {
   const newArr = arrForPanel.flat();
+  const newGamePanelArr = gamePanelArr.flat();
   for (let i = 0; i < newArr.length; i += 1) {
     const cell = document.createElement('div');
     cell.className = `cell`;
     cell.classList.add(`size-${tempSize}`);
     panel.append(cell);
     if (panel.classList.contains('game-panel')) {
+      if (newGamePanelArr[i] === 1) cell.classList.add('active-cell');
+      if (newGamePanelArr[i] === '0') {
+        cell.classList.add('cross-cell');
+        cell.innerText = 'X';
+      }
+      // console.log(newGamePanelArr);
+      // console.log(newArr);
       cell.id = i;
       cell.classList.add(`game-cell`);
       if (newArr.length === 100 && i > 39 && i < 50) {
@@ -432,7 +464,6 @@ function leftClickOnCell(cell) {
     const audio = new Audio('./click.mp3');
     if (soundStatus === 'ON') audio.play();
   }
-
   winGame();
 }
 
@@ -482,188 +513,27 @@ function winGame() {
     setTimeout(() => {
       const audio = new Audio('./bell.mp3');
       if (soundStatus === 'ON') audio.play();
-      console.log('Win!');
     }, 100);
+  } else {
+    // saveData();
   }
 }
 
-// const cells = 5;
-// const panelCells = 3; // fr1 = 3, fr2 = 5, fr3 = 8
-// const frames = 1;
-// const template = templates.temp5_1;
-// console.log(template);
-// const arrForLeftPanel = templateToLeftArr(template);
-// const arrForTopPanel = templateToTopArr(template);
-// const fieldArr = Array.from(Array(cells * frames), () =>
-//   new Array(cells * frames).fill(0)
-// );
-// console.log(arrForTopPanel);
-
-// // Create game main elements
-
-// const gameBox = document.createElement('div');
-// gameBox.className = 'game-box';
-// document.body.append(gameBox);
-// gameBox.style.gridTemplateColumns = `1fr ${frames}fr`;
-// // gameBox.style.gridTemplateRows = `1fr ${frames}fr`;
-// gameBox.style.gridTemplateRows = `1fr`;
-
-// const menuPanel = document.createElement('div');
-// menuPanel.className = 'menu-panel';
-// gameBox.append(menuPanel);
-
-// const topPanel = document.createElement('div');
-// topPanel.className = 'top-panel';
-// gameBox.append(topPanel);
-// createTopPanel(frames);
-
-// const leftPanel = document.createElement('div');
-// leftPanel.className = 'left-panel';
-// gameBox.append(leftPanel);
-// createLeftPanel(frames);
-
-// const gameField = document.createElement('div');
-// gameField.className = 'game-field';
-// gameBox.append(gameField);
-// createGameField(frames);
-
-// //Functions
-
-// function createTopPanel(frames) {
-//   const newArr = arrForTopPanel.flat();
-//   let cellId = 0;
-//   for (let i = 0; i < frames; i += 1) {
-//     const topFrame = document.createElement('div');
-//     topFrame.className = 'top-frame';
-//     topFrame.id = `t-fr-${i}`;
-//     topPanel.append(topFrame);
-//     topPanel.style.gridTemplateColumns = `repeat(${frames}, 1fr)`;
-//     let lastTop = 0;
-//     for (let k = 0; k < panelCells; k += 1) {
-//       for (let j = 0; j < cells; j += 1) {
-//         const topCell = document.createElement('div');
-//         topCell.className = `cell-${frames}`;
-//         topCell.id = cellId;
-//         topCell.innerText = newArr[cellId] ? newArr[cellId] : '';
-//         topFrame.append(topCell);
-//         cellId += 1;
-//         if (k === 0 && j === cells - 1) lastTop = cellId;
-//       }
-//       cellId += cells * 2;
-//     }
-//     i === 2 || i === 5 ? (cellId -= cells * 2) : (cellId = lastTop);
-//   }
-// }
-
-// function createLeftPanel(frames) {
-//   const newArr = arrForLeftPanel.flat();
-//   let count = 0;
-//   for (let i = 0; i < frames; i += 1) {
-//     const leftFrame = document.createElement('div');
-//     leftFrame.className = 'left-frame';
-//     leftFrame.id = `l-fr-${i}`;
-//     leftPanel.append(leftFrame);
-//     leftPanel.style.gridTemplateRows = `repeat(${frames}, 1fr)`;
-//     leftFrame.style.gridTemplateColumns = `repeat(${panelCells}, 1fr)`;
-//     gameBox.style.gridTemplateColumns = `${panelCells / frames}fr ${cells}fr`;
-//     for (let j = 0; j < panelCells * cells; j += 1) {
-//       const leftCell = document.createElement('div');
-//       leftCell.className = `cell-${frames}`;
-//       leftCell.id = `l-cell-${j + i * cells * 5}`;
-//       leftCell.innerText = newArr[count] ? newArr[count] : '';
-//       leftFrame.append(leftCell);
-//       count += 1;
-//     }
-//   }
-// }
-
-// function createGameField(frames) {
-//   let cellId = 0;
-//   for (let i = 0; i < frames * frames; i += 1) {
-//     const gameFrame = document.createElement('div');
-//     gameFrame.className = 'game-frame';
-//     gameFrame.id = `fr-${i}`;
-//     gameField.append(gameFrame);
-//     gameField.style.gridTemplateColumns = `repeat(${frames}, 1fr)`;
-//     let lastTop = 0;
-//     for (let k = 0; k < cells; k += 1) {
-//       for (let j = 0; j < cells; j += 1) {
-//         const gameCell = document.createElement('div');
-//         gameCell.className = `cell-${frames}`;
-//         gameCell.id = cellId;
-//         gameFrame.append(gameCell);
-//         gameCell.addEventListener('click', (cell) => {
-//           clickOnCell(cell.target);
-//         });
-//         cellId += 1;
-//         if (k === 0 && j === cells - 1) lastTop = cellId;
-//       }
-//       cellId += cells * 2;
-//     }
-//     i === 2 || i === 5 ? (cellId -= cells * 2) : (cellId = lastTop);
-//   }
-// }
-
-// function clickOnCell(cell) {
-//   const row = Math.floor(cell.id / (cells * frames));
-//   const col = cell.id - row * (cells * frames);
-//   if (cell.classList.contains('active-cell')) {
-//     cell.classList.remove('active-cell');
-//     fieldArr[row][col] = 0;
-//   } else {
-//     cell.classList.add('active-cell');
-//     fieldArr[row][col] = 1;
-//   }
-//   if (JSON.stringify(fieldArr) === JSON.stringify(template)) {
-//     alert('win!');
-//   }
-// }
-
-// function templateToLeftArr(template) {
-//   let result = [];
-//   for (let j = 0; j < template.length; j += 1) {
-//     let temp = template[j];
-//     let arr = [];
-//     let sum = 0;
-//     for (let i = 0; i < temp.length; i += 1) {
-//       if (temp[i] && temp[i + 1]) {
-//         sum += temp[i];
-//       } else if (temp[i] && !temp[i + 1]) {
-//         sum += temp[i];
-//         arr.push(sum);
-//         sum = 0;
-//       }
-//     }
-//     while (arr.length < panelCells) {
-//       arr.unshift(0);
-//     }
-//     result.push(arr);
-//   }
-//   return result;
-// }
-
-// function templateToTopArr(template) {
-//   template.push([]);
-//   let newArr = [];
-//   for (let i = 0; i < template.length - 1; i += 1) {
-//     let sum = 0;
-//     let arr = [];
-//     for (let j = 0; j < template.length - 1; j += 1) {
-//       if (template[j][i] && template[j + 1][i]) {
-//         sum += template[j][i];
-//       } else if (template[j][i] && !template[j + 1][i]) {
-//         sum += template[j][i];
-//         arr.unshift(sum);
-//         sum = 0;
-//       }
-//     }
-//     while (arr.length < panelCells) {
-//       arr.push(0);
-//     }
-//     newArr.push(arr);
-//   }
-//   const result = newArr[0].map((val, index) =>
-//     newArr.map((row) => row[row.length - 1 - index])
-//   );
-//   return result;
-// }
+function saveData() {
+  const gameData = {
+    randomNumber: randomNumber,
+    level: level,
+    template: template,
+    tempSize: tempSize,
+    tempName: tempName,
+    arrForLeftPanel: arrForLeftPanel,
+    arrForTopPanel: arrForTopPanel,
+    gamePanelArr: gamePanelArr,
+    soundStatus: soundStatus,
+    colorStatus: colorStatus,
+    status: status,
+    gameMin: gameMin,
+    gameSec: gameSec,
+  };
+  localStorage.setItem('gameData', JSON.stringify(gameData));
+}
