@@ -10,6 +10,7 @@ window.addEventListener('load', () => {
 // Ingame elements
 
 const localData = JSON.parse(localStorage.getItem('gameData')) || false;
+let resultsData = JSON.parse(localStorage.getItem('resultsData')) || [];
 
 let randomNumber = localData.randomNumber || randomInt(0, 4);
 let level = localData.level || 0;
@@ -26,6 +27,7 @@ let gamePanelArr =
 let soundStatus = localData.soundStatus || 'ON';
 let colorStatus = localData.colorStatus || 'Light';
 let timerStatus = false;
+let gameStatus;
 let status = 'menu';
 let gameMin = localData.gameMin || 0;
 let gameSec = localData.gameSec || 1;
@@ -57,6 +59,68 @@ const optionsColor = document.createElement('div');
 const optionsSound = document.createElement('div');
 const optionsBack = document.createElement('div');
 
+const resultsBlock = document.createElement('div');
+const resultsList = document.createElement('div');
+const resultsBack = document.createElement('div');
+
+resultsBlock.className = 'results-block display-none opacity-0';
+container.append(resultsBlock);
+resultsList.className = 'results-list';
+resultsBlock.append(resultsList);
+resultsBack.className = 'results-back menu-point';
+resultsBlock.append(resultsBack);
+resultsBack.innerText = 'BACK';
+resultsBack.addEventListener('click', () => {
+  menuOpenClose(mainMenuBlock, resultsBlock);
+});
+
+function createResultsBlock() {
+  resultsList.innerHTML = '';
+  resultsData = JSON.parse(localStorage.getItem('resultsData'));
+  for (let i = 0; i < resultsData.length; i += 1) {
+    const resultsLine = document.createElement('div');
+    resultsLine.classList = 'results-line';
+    resultsList.append(resultsLine);
+
+    const resultsLineMap = document.createElement('div');
+    resultsLineMap.className = 'results-line-map res-text';
+    resultsLine.append(resultsLineMap);
+    resultsLineMap.innerText = resultsData[i][0];
+
+    const resultsLineLv = document.createElement('div');
+    resultsLineLv.className = 'results-line-lv res-text';
+    resultsLine.append(resultsLineLv);
+    resultsLineLv.innerText = `lv.${resultsData[i][1]}`;
+
+    const resultsLineTime = document.createElement('div');
+    resultsLineTime.className = 'results-line-time';
+    resultsLine.append(resultsLineTime);
+
+    const resultsLineMin = document.createElement('div');
+    resultsLineMin.className = 'results-line-min res-text';
+    resultsLineTime.append(resultsLineMin);
+    resultsLineMin.innerText =
+      String(resultsData[i][2]).length < 2
+        ? `0${resultsData[i][2]}`
+        : resultsData[i][2];
+
+    const resultsLineCol = document.createElement('div');
+    resultsLineCol.className = 'results-line-col res-text';
+    resultsLineTime.append(resultsLineCol);
+    resultsLineCol.innerText = ':';
+
+    const resultsLineSec = document.createElement('div');
+    resultsLineSec.className = 'results-line-sec res-text';
+    resultsLineTime.append(resultsLineSec);
+    resultsLineSec.innerText =
+      String(resultsData[i][3]).length < 2
+        ? `0${resultsData[i][3]}`
+        : resultsData[i][3];
+  }
+
+  console.log(resultsData);
+}
+
 function createOptionsBlock() {
   optionsBlock.className = 'options-block display-none opacity-0';
   container.append(optionsBlock);
@@ -87,7 +151,9 @@ function createOptionsBlock() {
   optionsBack.className = 'menu-point options-back';
   optionsBlock.append(optionsBack);
   optionsBack.innerText = 'BACK';
-  optionsBack.addEventListener('click', () => closeOptions());
+  optionsBack.addEventListener('click', () =>
+    menuOpenClose(mainMenuBlock, optionsBlock)
+  );
 }
 
 createOptionsBlock();
@@ -128,7 +194,10 @@ function createMainMenu() {
   gameStart.className = 'menu-point game-start';
   mainMenuBlock.append(gameStart);
   gameStart.innerText = 'NEW GAME';
-  gameStart.addEventListener('click', () => startNewGame(randomNumber));
+  gameStart.addEventListener('click', () => {
+    gameStatus = 'new';
+    startNewGame(randomNumber);
+  });
 
   resumeGame.className = 'menu-point mp-inactive resume-game';
   mainMenuBlock.append(resumeGame);
@@ -157,11 +226,19 @@ function createMainMenu() {
   gameOptions.className = 'menu-point game-options';
   mainMenuBlock.append(gameOptions);
   gameOptions.innerText = 'OPTIONS';
-  gameOptions.addEventListener('click', () => openOptions());
+  gameOptions.addEventListener('click', () =>
+    menuOpenClose(optionsBlock, mainMenuBlock)
+  );
 
-  gameResults.className = 'menu-point mp-inactive game-results';
+  gameResults.className = 'menu-point game-results';
+  if (!localStorage.getItem('resultsData'))
+    gameResults.classList.add('mp-inactive');
   mainMenuBlock.append(gameResults);
   gameResults.innerText = 'RESULTS';
+  gameResults.addEventListener('click', () => {
+    createResultsBlock();
+    menuOpenClose(resultsBlock, mainMenuBlock);
+  });
 }
 
 createMainMenu();
@@ -209,7 +286,10 @@ function createIngameMenu() {
   menuTitle.className = 'menu-title';
   menuPanel.append(menuTitle);
   menuTitle.innerText = `Guess: ${tempName}-${level / 5 + 1}`;
-  menuTitle.addEventListener('click', () => nextRandomGame());
+  menuTitle.addEventListener('click', () => {
+    gameStatus = 'random';
+    nextRandomGame();
+  });
   gameTimer.className = 'game-timer';
   menuPanel.append(gameTimer);
   timerMin.className = 'timer-min';
@@ -228,7 +308,10 @@ function createIngameMenu() {
   resetBtn.className = 'reset-btn';
   menuPanel.append(resetBtn);
   resetBtn.innerText = 'Reset';
-  resetBtn.addEventListener('click', () => resetGame());
+  resetBtn.addEventListener('click', () => {
+    gameStatus = 'next';
+    resetGame();
+  });
 }
 
 createIngameMenu();
@@ -236,6 +319,7 @@ createIngameMenu();
 //Functions
 
 function startNewGame() {
+  gameMap.innerText = `MAP: ${templates[randomNumber + level][1]}`;
   mainMenuBlock.classList.add('opacity-0');
   setTimeout(() => {
     mainMenuBlock.classList.add('display-none');
@@ -248,24 +332,24 @@ function startNewGame() {
   resetGame();
 }
 
-function openOptions() {
-  mainMenuBlock.classList.add('opacity-0');
-  setTimeout(() => {
-    mainMenuBlock.classList.add('display-none');
-    optionsBlock.classList.remove('display-none');
-    setTimeout(() => {
-      optionsBlock.classList.remove('opacity-0');
-    }, 100);
-  }, 300);
-}
+// function menuOpenClose() {
+//   mainMenuBlock.classList.add('opacity-0');
+//   setTimeout(() => {
+//     mainMenuBlock.classList.add('display-none');
+//     optionsBlock.classList.remove('display-none');
+//     setTimeout(() => {
+//       optionsBlock.classList.remove('opacity-0');
+//     }, 100);
+//   }, 300);
+// }
 
-function closeOptions() {
-  optionsBlock.classList.add('opacity-0');
+function menuOpenClose(open, close) {
+  close.classList.add('opacity-0');
   setTimeout(() => {
-    optionsBlock.classList.add('display-none');
-    mainMenuBlock.classList.remove('display-none');
+    close.classList.add('display-none');
+    open.classList.remove('display-none');
     setTimeout(() => {
-      mainMenuBlock.classList.remove('opacity-0');
+      open.classList.remove('opacity-0');
     }, 100);
   }, 300);
   saveData();
@@ -348,6 +432,7 @@ function resetGame() {
       element.innerText = '';
     });
   } else {
+    // gameStatus = 'next';
     nextRandomGame();
   }
 }
@@ -361,12 +446,17 @@ function nextRandomGame() {
   topPanel.innerHTML = '';
   leftPanel.innerHTML = '';
   gamePanel.innerHTML = '';
-  let newRandomNumber = randomInt(0, 4);
-  while (newRandomNumber === randomNumber) {
-    newRandomNumber = randomInt(0, 4);
+  if (gameStatus !== 'new') {
+    let newRandomNumber = randomInt(0, 4);
+    while (newRandomNumber === randomNumber) {
+      newRandomNumber = randomInt(0, 4);
+    }
+    if (resetBtn.textContent === 'Reset') {
+      level = randomInt(0, 2) * 5;
+    }
+    randomNumber = newRandomNumber;
   }
-  level = randomInt(0, 2) * 5;
-  randomNumber = newRandomNumber;
+  gameStatus = '';
   template = templates[randomNumber + level].map((arr) => arr.slice());
   createMatrix(template);
   createMainElements();
@@ -405,8 +495,6 @@ function fillPanels(arrForPanel, panel) {
         cell.classList.add('cross-cell');
         cell.innerText = 'X';
       }
-      // console.log(newGamePanelArr);
-      // console.log(newArr);
       cell.id = i;
       cell.classList.add(`game-cell`);
       if (newArr.length === 100 && i > 39 && i < 50) {
@@ -497,6 +585,7 @@ function winGame() {
   const gameArr = gamePanelArr.map((e) => e.join('')).join('');
   if (tempArr === gameArr) {
     status = 'game';
+    menuTitle.innerText = 'Nonogram Solved!';
     gameTimer.classList.remove('next-btn');
     resetBtn.innerText = 'Next';
     const cellArr = gamePanel.querySelectorAll('.game-cell');
@@ -514,9 +603,10 @@ function winGame() {
       const audio = new Audio('./bell.mp3');
       if (soundStatus === 'ON') audio.play();
     }, 100);
-  } else {
-    // saveData();
+    saveResults();
+    gameResults.classList.remove('mp-inactive');
   }
+  gameMap.innerText = `MAP: ${templates[randomNumber + level][1]}`;
 }
 
 function saveData() {
@@ -536,4 +626,15 @@ function saveData() {
     gameSec: gameSec,
   };
   localStorage.setItem('gameData', JSON.stringify(gameData));
+}
+
+function saveResults() {
+  const newResulst = [
+    gameMap.textContent.split(' ')[1],
+    gameLevel.textContent.split(' ')[1],
+    gameMin,
+    gameSec,
+  ];
+  resultsData.push(newResulst);
+  localStorage.setItem('resultsData', JSON.stringify(resultsData));
 }
