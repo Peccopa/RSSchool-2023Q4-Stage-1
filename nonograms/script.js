@@ -131,8 +131,6 @@ function createResultsBlock() {
         ? `0${resultsData[i][3]}`
         : resultsData[i][3];
   }
-
-  // console.log(resultsData);
 }
 
 function createOptionsBlock() {
@@ -521,6 +519,7 @@ function nextRandomGame() {
   menuTitle.innerText = menuTitleText;
   gameLevel.innerText = `LEVEL: ${level / 5 + 1}`;
   resetBtn.innerText = 'Reset';
+  console.log(template);
 }
 
 function nextMap() {
@@ -653,8 +652,6 @@ function solution() {
 
   const cellArr = gamePanel.querySelectorAll('.game-cell');
   const newArr = template.flat();
-  console.log(newArr);
-  console.log(cellArr);
 
   for (let i = 0; i < newArr.length; i += 1) {
     cellArr[i].classList.remove('cross-cell');
