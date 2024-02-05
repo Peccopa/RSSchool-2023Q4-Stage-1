@@ -31,6 +31,7 @@ let gameStatus;
 let status = 'menu';
 let gameMin = localData.gameMin || 0;
 let gameSec = localData.gameSec || 1;
+let menuTitleText;
 
 // createMatrix(template);
 
@@ -77,6 +78,19 @@ resultsBack.addEventListener('click', () => {
 function createResultsBlock() {
   resultsList.innerHTML = '';
   resultsData = JSON.parse(localStorage.getItem('resultsData'));
+
+  function sortResults(index) {
+    resultsData.sort((a, b) => {
+      if (a[index] === b[index]) {
+        return 0;
+      } else {
+        return a[index] < b[index] ? -1 : 1;
+      }
+    });
+  }
+  sortResults(3);
+  sortResults(2);
+
   for (let i = 0; i < resultsData.length; i += 1) {
     const resultsLine = document.createElement('div');
     resultsLine.classList = 'results-line';
@@ -118,7 +132,7 @@ function createResultsBlock() {
         : resultsData[i][3];
   }
 
-  console.log(resultsData);
+  // console.log(resultsData);
 }
 
 function createOptionsBlock() {
@@ -285,13 +299,57 @@ createMainElements();
 function createIngameMenu() {
   menuTitle.className = 'menu-title';
   menuPanel.append(menuTitle);
-  menuTitle.innerText = `Guess: ${tempName}-${level / 5 + 1}`;
+  menuTitleText = `Guess: ${tempName}-${level / 5 + 1}`;
+  menuTitle.innerText = menuTitleText;
+  menuTitle.addEventListener('mouseenter', () => {
+    menuTitle.classList.add('transparent-text');
+    setTimeout(() => {
+      menuTitle.innerText = 'Random Game';
+      menuTitle.classList.remove('transparent-text');
+    }, 200);
+  });
+  menuTitle.addEventListener('mouseleave', () => {
+    menuTitle.classList.add('transparent-text');
+    setTimeout(() => {
+      menuTitle.innerText = menuTitleText;
+      menuTitle.classList.remove('transparent-text');
+    }, 300);
+  });
   menuTitle.addEventListener('click', () => {
     gameStatus = 'random';
     nextRandomGame();
   });
+
   gameTimer.className = 'game-timer';
   menuPanel.append(gameTimer);
+
+  gameTimer.addEventListener('click', () => {
+    if (solutionCount === 0) solution();
+  });
+
+  gameTimer.addEventListener('mouseenter', () => {
+    timerMin.classList.add('transparent-text');
+    timerColon.classList.add('transparent-text');
+    timerSec.classList.add('transparent-text');
+    setTimeout(() => {
+      timerMin.classList.add('diplay-none');
+      timerSec.classList.add('diplay-none');
+      timerColon.innerText = 'Solution';
+      timerColon.classList.remove('transparent-text');
+    }, 200);
+  });
+  gameTimer.addEventListener('mouseleave', () => {
+    timerColon.classList.add('transparent-text');
+    setTimeout(() => {
+      timerMin.classList.remove('diplay-none');
+      timerSec.classList.remove('diplay-none');
+      timerMin.classList.remove('transparent-text');
+      timerSec.classList.remove('transparent-text');
+      timerColon.innerText = ':';
+      timerColon.classList.remove('transparent-text');
+    }, 300);
+  });
+
   timerMin.className = 'timer-min';
   gameTimer.append(timerMin);
   timerMin.innerText = String(gameMin).length < 2 ? `0${gameMin}` : gameMin;
@@ -319,6 +377,9 @@ createIngameMenu();
 //Functions
 
 function startNewGame() {
+  gameTimer.classList.remove('game-cell-inactive');
+  gameMin = 0;
+  gameSec = 1;
   gameMap.innerText = `MAP: ${templates[randomNumber + level][1]}`;
   mainMenuBlock.classList.add('opacity-0');
   setTimeout(() => {
@@ -438,6 +499,8 @@ function resetGame() {
 }
 
 function nextRandomGame() {
+  solutionCount = 0;
+  gameTimer.classList.remove('game-cell-inactive');
   status = 'game';
   timerSec.innerText = '00';
   timerMin.innerText = '00';
@@ -460,7 +523,8 @@ function nextRandomGame() {
   template = templates[randomNumber + level].map((arr) => arr.slice());
   createMatrix(template);
   createMainElements();
-  menuTitle.innerText = `Guess: ${tempName}-${level / 5 + 1}`;
+  menuTitleText = `Guess: ${tempName}-${level / 5 + 1}`;
+  menuTitle.innerText = menuTitleText;
   gameLevel.innerText = `LEVEL: ${level / 5 + 1}`;
   resetBtn.innerText = 'Reset';
 }
@@ -477,7 +541,8 @@ function nextMap() {
   template = templates[randomNumber + level].map((arr) => arr.slice());
   createMatrix(template);
   createMainElements();
-  menuTitle.innerText = `Guess: ${tempName}-${level / 5 + 1}`;
+  menuTitleText = `Guess: ${tempName}-${level / 5 + 1}`;
+  menuTitle.innerText = menuTitleText;
   resetBtn.innerText = 'Reset';
 }
 
@@ -580,12 +645,50 @@ function rightClickOnCell(cell) {
   winGame();
 }
 
+let solutionCount = 0;
+
+function solution() {
+  gameTimer.classList.add('game-cell-inactive');
+  solutionCount = 1;
+  status = 'game';
+  menuTitleText = 'Nonogram Peeped!';
+  menuTitle.innerText = menuTitleText;
+  gameTimer.classList.remove('next-btn');
+  resetBtn.innerText = 'Next';
+  resetBtn.classList.add('next-btn');
+
+  const cellArr = gamePanel.querySelectorAll('.game-cell');
+  const newArr = template.flat();
+  console.log(newArr);
+  console.log(cellArr);
+
+  for (let i = 0; i < newArr.length; i += 1) {
+    cellArr[i].classList.remove('cross-cell');
+    cellArr[i].classList.remove('game-cell');
+    cellArr[i].classList.remove('active-cell');
+    cellArr[i].classList.add('game-cell-inactive');
+    cellArr[i].innerText = '';
+    if (newArr[i] === 1) {
+      cellArr[i].classList.add('winner-cell');
+    }
+  }
+
+  setTimeout(() => {
+    const audio = new Audio('./solution.mp3');
+    if (soundStatus === 'ON') audio.play();
+  }, 100);
+
+  gameMap.innerText = `MAP: ${templates[randomNumber + level][1]}`; // ????
+}
+
 function winGame() {
   const tempArr = template.map((e) => e.join('')).join('');
   const gameArr = gamePanelArr.map((e) => e.join('')).join('');
   if (tempArr === gameArr) {
+    gameTimer.classList.remove('game-cell-inactive');
     status = 'game';
-    menuTitle.innerText = 'Nonogram Solved!';
+    menuTitleText = 'Nonogram Solved!';
+    menuTitle.innerText = menuTitleText;
     gameTimer.classList.remove('next-btn');
     resetBtn.innerText = 'Next';
     const cellArr = gamePanel.querySelectorAll('.game-cell');

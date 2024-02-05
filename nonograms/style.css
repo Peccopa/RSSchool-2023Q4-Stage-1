@@ -125,6 +125,10 @@
   align-items: center;
 }
 
+/* .results-line-map { */
+/* justify-content: start; */
+/* } */
+
 .menu-point:hover:not(.mp-inactive) {
   text-decoration: underline;
 }
@@ -163,6 +167,8 @@
 }
 
 .menu-title {
+  width: 24rem;
+  height: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,14 +181,21 @@
   border: 0.2rem solid var(--main-color-0);
 }
 
+.transparent-text {
+  color: transparent;
+  transition: all 0.2s ease-in-out;
+}
+
 .game-timer {
-  width: 10rem;
+  width: 11rem;
+  height: 5rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 1rem;
   border-radius: 0.5rem;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 
   border: 0.2rem solid var(--main-color-0);
 }
@@ -193,6 +206,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 2rem;
+    transition: all 0.3s ease-in-out;
 }
 
 .timer-colon {
@@ -201,6 +215,7 @@
   justify-content: center;
   align-items: center;
   font-size: 2rem;
+  transition: all 0.3s ease-in-out;
 }
 
 .timer-sec {
@@ -209,10 +224,12 @@
   justify-content: space-between;
   align-items: center;
   font-size: 2rem;
+  transition: all 0.3s ease-in-out;
 }
 
 .menu-btn {
-  width: 10rem;
+  width: 11rem;
+  height: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -226,7 +243,8 @@
 }
 
 .reset-btn {
-  width: 10rem;
+  height: 5rem;
+  width: 11rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -243,6 +261,7 @@
   background-color: var(--main-color-2);
 }
 
+.game-timer:hover,
 .menu-title:hover,
 .menu-btn:hover,
 .reset-btn:hover {
