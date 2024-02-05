@@ -267,6 +267,7 @@ const leftPanel = document.createElement('div');
 const gamePanel = document.createElement('div');
 const menuTitle = document.createElement('div');
 const gameTimer = document.createElement('div');
+const gameTimerText = document.createElement('div');
 const timerMin = document.createElement('div');
 const timerColon = document.createElement('div');
 const timerSec = document.createElement('div');
@@ -322,30 +323,35 @@ function createIngameMenu() {
 
   gameTimer.className = 'game-timer';
   menuPanel.append(gameTimer);
-
   gameTimer.addEventListener('click', () => {
     if (solutionCount === 0) solution();
   });
+
+  gameTimerText.className = 'game-timer-text display-none transparent-text';
+  gameTimer.append(gameTimerText);
+  gameTimerText.innerText = 'Solution';
 
   gameTimer.addEventListener('mouseenter', () => {
     timerMin.classList.add('transparent-text');
     timerColon.classList.add('transparent-text');
     timerSec.classList.add('transparent-text');
     setTimeout(() => {
-      timerMin.classList.add('diplay-none');
-      timerSec.classList.add('diplay-none');
-      timerColon.innerText = 'Solution';
-      timerColon.classList.remove('transparent-text');
-    }, 200);
+      timerMin.classList.add('display-none');
+      timerSec.classList.add('display-none');
+      timerColon.classList.add('display-none');
+      gameTimerText.classList.remove('display-none');
+      gameTimerText.classList.remove('transparent-text');
+    }, 300);
   });
   gameTimer.addEventListener('mouseleave', () => {
-    timerColon.classList.add('transparent-text');
+    gameTimerText.classList.add('transparent-text');
     setTimeout(() => {
-      timerMin.classList.remove('diplay-none');
-      timerSec.classList.remove('diplay-none');
+      gameTimerText.classList.add('display-none');
+      timerMin.classList.remove('display-none');
+      timerSec.classList.remove('display-none');
+      timerColon.classList.remove('display-none');
       timerMin.classList.remove('transparent-text');
       timerSec.classList.remove('transparent-text');
-      timerColon.innerText = ':';
       timerColon.classList.remove('transparent-text');
     }, 300);
   });
@@ -392,17 +398,6 @@ function startNewGame() {
   status = 'game';
   resetGame();
 }
-
-// function menuOpenClose() {
-//   mainMenuBlock.classList.add('opacity-0');
-//   setTimeout(() => {
-//     mainMenuBlock.classList.add('display-none');
-//     optionsBlock.classList.remove('display-none');
-//     setTimeout(() => {
-//       optionsBlock.classList.remove('opacity-0');
-//     }, 100);
-//   }, 300);
-// }
 
 function menuOpenClose(open, close) {
   close.classList.add('opacity-0');
@@ -493,7 +488,6 @@ function resetGame() {
       element.innerText = '';
     });
   } else {
-    // gameStatus = 'next';
     nextRandomGame();
   }
 }
@@ -678,7 +672,7 @@ function solution() {
     if (soundStatus === 'ON') audio.play();
   }, 100);
 
-  gameMap.innerText = `MAP: ${templates[randomNumber + level][1]}`; // ????
+  gameMap.innerText = `MAP: ${templates[randomNumber + level][1]}`;
 }
 
 function winGame() {
