@@ -271,6 +271,7 @@ const timerColon = document.createElement('div');
 const timerSec = document.createElement('div');
 const menuBtn = document.createElement('div');
 const resetBtn = document.createElement('div');
+const saveBtn = document.createElement('div');
 
 function createMainElements() {
   container.className = 'container';
