@@ -278,12 +278,12 @@
 }
 
 .border-bottom {
-  border-bottom: 0.2rem solid var(--main-color-0);
+  border-bottom: 2px solid var(--main-color-0);
 }
 
 .top-cell:nth-child(5n),
 .game-cell:nth-child(5n) {
-  border-right: 0.2rem solid var(--main-color-0);
+  border-right: 2px solid var(--main-color-0);
 }
 
 .size-3 {
