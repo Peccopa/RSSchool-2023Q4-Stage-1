@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*, ::before,::after {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: slateblue;
+  padding: 0 2rem;
+  opacity: 0;
+  transition: all .5s ease-in-out;
+}
+.game-box {
+  width: 100rem;
+  background-color: aliceblue;
+  display: flex;
+  gap: 10rem;
+  align-items: flex-end;
+  padding: 6rem 4rem;
+  border-radius: 2rem;
+}
+.scaffold__title {
+  font-size: 2.8rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.game-box__guesser {
+  display: flex;
+  flex-direction: column;
+}
+.guesser__letters {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 5rem;
+  margin-bottom: 4rem;
+}
+.guess-letter {
+  width: 2.8rem;
+  height: 3.3rem;
+  border-bottom: .3rem solid black;
+  border-top: .2rem solid transparent;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+
+  transition: all .3s ease-in-out;
+}
+.guessed {
+  border-color: transparent;
+  background-color: rgba(105, 90, 205, 0.5);
+  border-radius: .2rem;
+}
+.guesser__hint,
+.guesser__count {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.hint__question,
+.count__number {
+  font-size: 1.6rem;
+  font-weight: 500;
+  font-style: italic;
+}
+.count__number {
+  font-weight: 600;
+  color: red;
+}
+.guesser__keyboard {
+  display: flex;
+  margin-top: 4rem;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.modal-content__btn,
+.keyboard-btn {
+  color: aliceblue;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: slateblue;
+  border-radius: .4rem;
+  text-transform: uppercase;
+  transition: all .2s ease-in-out;
+}
+.keyboard-btn {
+  padding: .7rem;
+  width: calc(100% / 10 - .5rem);
+}
+.modal-content__btn:hover,
+.keyboard-btn:hover {
+  background-color: rgba(105, 90, 205, 0.5);
+}
+.empty-btn {
+  padding: .7rem;
+  width: calc(100% / 20 - .5rem);
+}
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.game-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 0 .1rem;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity .5s ease;
+}
+.show-modal {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-content {
+  background-color: aliceblue;
+  max-width: 42rem;
+  width: 100%;
+  text-align: center;
+  border-radius: 1rem;
+  padding: 3rem;
+  margin: 2rem;
+}
+.modal-content__title {
+  font-size: 2rem;
+}
+.modal-content__text {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 3rem;
+  font-weight: 500;
+}
+.modal-content__word {
+  font-size: 1.6rem;
+  color: slateblue;
+  font-weight: 600;
+}
+.modal-content__btn {
+  padding: 1.2rem 2.3rem;
+}
+
+@media (max-width: 820px) {
+  .game-box {
+    flex-direction: column;
+    padding: 3rem 1.5rem;
+    align-items: center;
+    gap: 2rem;
+  }
+  .scaffold__svg {
+    max-width: 20rem;
+  }
+  .scaffold__title {
+    font-size: 2rem;
+    margin-bottom: 0rem;
+  }
+}
+@media (max-width: 400px) {
+  .body {
+    padding: 0 1rem;
+  }
+  .empty-btn {
+    display: none;
+  }
+  .keyboard-btn {
+    font-size: 1.4rem;
+    padding: .7rem .2rem;
+  }
+}
