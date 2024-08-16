@@ -1,5 +1,5 @@
 //сорри за качествао кода, температура 38.5
-import data from '../../assets/products.json' assert {type: 'json'};
+import data from '../../assets/products.json' with {type: 'json'};
 'use strict';
 window.addEventListener('load', (event) => {
     setTimeout(() => {
