@@ -75,6 +75,8 @@
   font-size: 3.5rem;
   font-weight: 900;
   transition: all 0.3s all;
+
+  white-space: nowrap;
 }
 .results-back,
 .options-back {
